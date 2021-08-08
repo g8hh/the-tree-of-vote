@@ -31,44 +31,66 @@ addLayer("b", {
         "blank",
         "milestones",
         "buyables",
+        "blank",
         "upgrades",
         ],
     buyables:{
         11:{
             cost(x){return new Decimal(100).pow(x+1)},
+
             title:"Elund",
+
             display(){words = `Unlock other buyable.<br>
                             Currently: Unlocked `+format(buyableEffect(this.layer,this.id))+` more buyable.<br>
                             Next: `
                     if (getBuyableAmount(this.layer,this.id).gte(this.purchaseLimit))return words + "MAXED"
                     else return words + format(this.cost()) + " points."},
+            
             canAfford(){return player.points.gte(this.cost())},
+            
             buy() {
                 player.points = player.points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
                 player[this.layer].points=player[this.layer].points.add(1)
             },
+
             effect(){return getBuyableAmount(this.layer,this.id)},
+
             purchaseLimit:new Decimal(1)
         },
         12:{
             unlocked(){if (buyableEffect(this.layer,11).gte(1)) return true
                         else return false},
+            
             cost(x){return new Decimal(2).pow(x)},
+
             title:"ant warmer",
+
             display(){words = `Boost point gain by x2.<br>
                             Currently: `+format(buyableEffect(this.layer,this.id))+`x.<br>
                             Next: `
                     if (getBuyableAmount(this.layer,this.id).gte(this.purchaseLimit))return words + "MAXED"
                     else return words + format(this.cost()) + " Rigged Polls."},
+            
             canAfford(){return player.po.points.gte(this.cost())},
+
             effect(){return new Decimal(2).pow(getBuyableAmount(this.layer,this.id))},
+
             buy() {
                 player.po.points = player.po.points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
                 player[this.layer].points=player[this.layer].points.add(1)
             },
+
             purchaseLimit:new Decimal(10)
         },
+
     },
+    upgrades:{
+        11: {
+            title: "Elund",
+            description: "Adds 5 to base point gain, and then multiplies point gain by 5.",
+            cost: new Decimal(3),
+        },
+    }
 })
