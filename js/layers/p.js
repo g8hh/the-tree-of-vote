@@ -44,7 +44,7 @@ addLayer("p", {
         13: {
             name: "Prestige Point booster",
             description: "Boost your prestige point gain based on your point.",
-            cost: new Decimal(3),
+            cost: new Decimal(5),
             effect() {
                 return player.points.add(1).pow(0.15)
             },
