@@ -13,14 +13,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.12",
+	num: "0.13",
 	name: "Atleast something",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<br><h3>v0.12</h3><br>
+	<br><h3>v0.13</h3><br>
 		- Added a upgrade that divides upvoid by 10.<br>
 		- Added a upgrade in poll layer that makes the clickable in the first layer do something.<br>
+		- Added a buyable in buyable layer that costs rigged polls and multiplies point gain by 2 per buyable.<br>
 	<br><h3>v0.10</h3><br>
 		- (UNVOTE) Balanced Poll layer gain.<br>
 		- Added a upgrade that description is point x3^3 (7).<br>
@@ -68,6 +69,7 @@ function getPointGen() {
 	if (hasUpgrade('p', 14)) gain = gain.times(upgradeEffect('p', 14))
 	if (hasUpgrade('p', 24)) gain = gain.div(upgradeEffect('p', 24))
 	if (hasUpgrade('po', 11))gain = gain.times(7)
+	if (getBuyableAmount('b',12).gte(new Decimal(1)))gain = gain.times(buyableEffect('b',12))
 
 	return gain
 }
@@ -77,7 +79,7 @@ function addedPlayerData() { return {
 }}
 
 // Display extra things at the top of the page
-var displayThings = [
+var displayThings = ["Endgame: 6 Buyable points"
 ]
 
 // Determines when the game "ends"

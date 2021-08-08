@@ -20,21 +20,25 @@ addLayer("b", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
+    doReset(resettingLayer){},
     row: 0, // Row the layer is in on the tree (0 is the first row)
     layerShown(){return true},
     tabFormat:[
         "main-display",
-        "resource-display",
+        ["display-text",
+        `For every buyable you buy, you'll gain an buyable point.<br>
+        They DON'T reset unless said so.`],
+        "blank",
         "milestones",
         "buyables",
         "upgrades",
         ],
     buyables:{
         11:{
-            cost(x){return new Decimal(100).pow(x)},
+            cost(x){return new Decimal(100).pow(x+1)},
             title:"Elund",
             display(){words = `Unlock other buyable.<br>
-                            Currently: Unlocked `+format(getBuyableAmount(this.layer,this.id))+` more buyable.<br>
+                            Currently: Unlocked `+format(buyableEffect(this.layer,this.id))+` more buyable.<br>
                             Next: `
                     if (getBuyableAmount(this.layer,this.id).gte(this.purchaseLimit))return words + "MAXED"
                     else return words + format(this.cost()) + " points."},
@@ -42,8 +46,29 @@ addLayer("b", {
             buy() {
                 player.points = player.points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                player[this.layer].points=player[this.layer].points.add(1)
             },
-            purchaseLimit:new Decimal(0)
-        }
-    }
+            effect(){return getBuyableAmount(this.layer,this.id)},
+            purchaseLimit:new Decimal(1)
+        },
+        12:{
+            unlocked(){if (buyableEffect(this.layer,11).gte(1)) return true
+                        else return false},
+            cost(x){return new Decimal(2).pow(x)},
+            title:"ant warmer",
+            display(){words = `Boost point gain by x2.<br>
+                            Currently: `+format(buyableEffect(this.layer,this.id))+`x.<br>
+                            Next: `
+                    if (getBuyableAmount(this.layer,this.id).gte(this.purchaseLimit))return words + "MAXED"
+                    else return words + format(this.cost()) + " Rigged Polls."},
+            canAfford(){return player.po.points.gte(this.cost())},
+            effect(){return new Decimal(2).pow(getBuyableAmount(this.layer,this.id))},
+            buy() {
+                player.po.points = player.po.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                player[this.layer].points=player[this.layer].points.add(1)
+            },
+            purchaseLimit:new Decimal(10)
+        },
+    },
 })
