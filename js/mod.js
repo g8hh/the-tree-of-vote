@@ -82,7 +82,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasUpgrade('po',13)
+	return (hasUpgrade('po',13)||hasUpgrade('po',12))
 }
 
 
