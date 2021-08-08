@@ -6,7 +6,7 @@ addLayer("p", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#4BDC13",
+    color: "#31aeb0",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "prestige points", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
@@ -26,6 +26,13 @@ addLayer("p", {
         {key: "p", description: "P: Reset for prestige points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    clickables: {
+        11: {
+            title:'lolyou230',
+            display() {return "A completely useless clickable."},
+            canClick(){return true},
+        },
+    },
     upgrades:{
         11: {
             name: "Point doubler",
@@ -37,7 +44,7 @@ addLayer("p", {
             description: "Boost your point gain based on your prestige point.",
             cost: new Decimal(3),
             effect() {
-                return player[this.layer].points.add(1).pow(0.5)
+                return player[this.layer].points.add(2).pow(0.5)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -48,7 +55,51 @@ addLayer("p", {
             effect() {
                 return player.points.add(1).pow(0.15)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        14: {
+            title: "Fawwaz Arkan",
+            description: "Boost your point gain based on your sqrt(prestige point+1).",
+            cost: new Decimal(5),
+            effect() {
+                return player[this.layer].points.add(1).sqrt()
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        21: {
+            title: "upvoid",
+            description: "Unlock next upgrade.",
+            cost: new Decimal(10),
+            unlocked(){if (hasUpgrade(this.layer,14))return true
+                        else return false},
+        },
+        22: {
+            title: "upvoid",
+            description: "Unlock next upgrade.",
+            cost: new Decimal(10),
+            unlocked(){if (hasUpgrade(this.layer,21))return true
+                else return false},
+        },
+        23: {
+            title: "upvoid",
+            description: "Unlock next upgrade.",
+            cost: new Decimal(10),
+            unlocked(){if (hasUpgrade(this.layer,22))return true
+                else return false},
+        },
+        24: {
+            title: "upvoid",
+            description: "Devide your point gain by 2.",
+            cost: new Decimal(10),
+            unlocked(){if (hasUpgrade(this.layer,23))return true
+                else return false},
+        },
+        31: {
+            title: "Elund",
+            description: "Not an upgrade, don't buy this.",
+            cost: new Decimal(20),
+            unlocked(){if (hasUpgrade(this.layer,23))return true
+                else return false},
         },
     }
 })

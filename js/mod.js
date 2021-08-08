@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Vote",
 	author: "ajchen and alots of people",
 	pointsName: "points",
-	modFiles: ["layers/p.js", "tree.js"],
+	modFiles: ["layers/p.js","layers/b.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,14 +13,23 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "0.08",
+	name: "Atleast something",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
+	<h3>v0.08</h3><br>
+		- Added an complete useless buyable.<br>
+		- Add a layer called "buyable points".<br>
+		- Make prestige point layer teal like that famous TMT mod.<br>
+		- Add a buyable that unlocks buyables.<br>
+		- Add a sublinear(?) upgrade that uses formula cbrt(x+1).<br>
+		- Add an upgrade that unlocks another upgrade, which unlocks an upgrade.<br>
+		- Add an upgrade that divides point gain by 2, buying it will put you into hard mode.<br>
+		- Add an upgrade called "not an upgrade don't buy this"<br>
+	<h3>v0.00</h3><br>
 		- Added things.<br>
-		- Added stuff.`
+		- Added stuff.<br>`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -45,6 +54,8 @@ function getPointGen() {
 	let gain = new Decimal(1)
 	if (hasUpgrade('p', 11)) gain = gain.times(2)
     if (hasUpgrade('p', 12)) gain = gain.times(upgradeEffect('p', 12))
+	if (hasUpgrade('p', 14)) gain = gain.times(upgradeEffect('p', 14))
+	if (hasUpgrade('p', 24)) gain = gain.div(2)
 
 	return gain
 }
