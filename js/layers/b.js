@@ -31,11 +31,13 @@ addLayer("b", {
         ],
     buyables:{
         11:{
-            cost(x){return new Decimal(10).mul(x)},
+            cost(x){return new Decimal(100).pow(x.add(1))},
             title:"Elund",
-            display(){return `Unlock other buyable.<br>
+            display(){words = `Unlock other buyable.<br>
                             Currently: Unlocked `+format(getBuyableAmount(this.layer,this.id))+` more buyable.<br>
-                            Next:MAXED`},
+                            Next: `
+                    if (getBuyableAmount(this.layer,this.id).gte(this.purchaseLimit))return words + "MAXED"
+                    else return words + format(this.cost()) + " points."},
             canAfford(){return player.points.gte(this.cost())},
             buy() {
                 player.points = player.points.sub(this.cost())
