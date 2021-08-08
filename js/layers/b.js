@@ -31,7 +31,7 @@ addLayer("b", {
         ],
     buyables:{
         11:{
-            cost(x){return new Decimal(100).pow(x.add(1))},
+            cost(x){return new Decimal(100).pow(x)},
             title:"Elund",
             display(){words = `Unlock other buyable.<br>
                             Currently: Unlocked `+format(getBuyableAmount(this.layer,this.id))+` more buyable.<br>
