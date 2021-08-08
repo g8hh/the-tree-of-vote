@@ -13,11 +13,13 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.09",
+	num: "0.10",
 	name: "Atleast something",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v0.10</h3><br>
+		- Added a upgrade that description is point x3^3 (7).<br>
 	<br><h3>v0.09</h3><br>
 		- (UNVOTE) Banlaced prestige upgrade 12.<br>
 		- (UNVOTE) Changed buyable layer's display colour.<br>
@@ -61,6 +63,7 @@ function getPointGen() {
     if (hasUpgrade('p', 12)) gain = gain.times(upgradeEffect('p', 12))
 	if (hasUpgrade('p', 14)) gain = gain.times(upgradeEffect('p', 14))
 	if (hasUpgrade('p', 24)) gain = gain.div(2)
+	if (hasUpgrade('po', 11))gain = gain.times(7)
 
 	return gain
 }

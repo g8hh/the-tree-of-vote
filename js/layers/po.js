@@ -27,4 +27,12 @@ addLayer("po", {
     ],
     layerShown(){if (hasUpgrade('p',31) || player[this.layer].points.gte(1)) return true
                 else return false},
+    upgrades:{
+        11: {
+            title: "3^3=7",
+            description: "point x3^3 (7).",
+            cost: new Decimal(1),
+            tooltip:"formula:(3^3)^0.5904145830538074"
+        },
+    }
 })
