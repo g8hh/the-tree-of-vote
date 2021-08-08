@@ -84,7 +84,7 @@ var displayThings = ["Endgame: 6 Buyable points"
 
 // Determines when the game "ends"
 function isEndgame() {
-	return (hasUpgrade('po',13)||hasUpgrade('po',12))
+	return (player.b.points.gte(new Decimal(6)))
 }
 
 
