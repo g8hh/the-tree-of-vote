@@ -13,14 +13,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.11",
+	num: "0.09",
 	name: "Atleast something",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.11</h3><br>
+	<h3>v0.09</h3><br>
 		- (UNVOTE) Banlaced prestige upgrade 12.<br>
 		- (UNVOTE) Changed buyable layer's display colour.<br>
+		- (UNVOTE) Fixed an typo.<br>
 		- Added Polls layer.<br>
 	<h3>v0.08</h3><br>
 		- Added an complete useless buyable.<br>

@@ -59,10 +59,10 @@ addLayer("p", {
         },
         14: {
             title: "Fawwaz Arkan",
-            description: "Boost your point gain based on sqrt(prestige point+1).",
+            description: "Boost your point gain based on cbrt(prestige point+1).",
             cost: new Decimal(5),
             effect() {
-                return player[this.layer].points.add(1).sqrt()
+                return player[this.layer].points.add(1).cbrt()
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
