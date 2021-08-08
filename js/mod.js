@@ -82,7 +82,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.po.points.gte(1)
+	return hasUpgrade('po',13)
 }
 
 
