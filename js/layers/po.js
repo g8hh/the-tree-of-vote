@@ -42,7 +42,7 @@ addLayer("po", {
         },
         13: {
             title: "lolyou230",
-            description: "Make the cilckable in prestige layer \"Do Something\".",
+            description: "Make the cilckable in prestige layer \"Do Something.\"",
             cost: new Decimal(3),
         },
     }

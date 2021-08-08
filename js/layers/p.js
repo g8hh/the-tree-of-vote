@@ -29,7 +29,7 @@ addLayer("p", {
     clickables: {
         11: {
             title:'lolyou230',
-            display() {if (hasUpgrade('po',13))return "Do something"
+            display() {if (hasUpgrade('po',13))return "Do something."
                 else return "A completely useless clickable."},
             canClick(){return true},
         },
