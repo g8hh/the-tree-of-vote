@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Vote",
 	author: "ajchen and alots of people",
 	pointsName: "points",
-	modFiles: ["layers/p.js","layers/b.js", "tree.js"],
+	modFiles: ["layers/p.js","layers/po.js","layers/b.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,20 +13,24 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.08",
+	num: "0.11",
 	name: "Atleast something",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.11</h3><br>
+		- (UNVOTE) Banlaced prestige upgrade 12.<br>
+		- (UNVOTE) Changed buyable layer's display colour.<br>
+		- Added Polls layer.<br>
 	<h3>v0.08</h3><br>
 		- Added an complete useless buyable.<br>
-		- Add a layer called "buyable points".<br>
+		- Added a layer called "buyable points".<br>
 		- Make prestige point layer teal like that famous TMT mod.<br>
-		- Add a buyable that unlocks buyables.<br>
-		- Add a sublinear(?) upgrade that uses formula cbrt(x+1).<br>
-		- Add an upgrade that unlocks another upgrade, which unlocks an upgrade.<br>
-		- Add an upgrade that divides point gain by 2, buying it will put you into hard mode.<br>
-		- Add an upgrade called "not an upgrade don't buy this"<br>
+		- Added a buyable that unlocks buyables.<br>
+		- Added a sublinear(?) upgrade that uses formula cbrt(x+1).<br>
+		- Added an upgrade that unlocks another upgrade, which unlocks an upgrade.<br>
+		- Added an upgrade that divides point gain by 2, buying it will put you into hard mode.<br>
+		- Added an upgrade called "not an upgrade don't buy this"<br>
 	<h3>v0.00</h3><br>
 		- Added things.<br>
 		- Added stuff.<br>`
@@ -70,7 +74,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return player.po.points.gte(1)
 }
 
 

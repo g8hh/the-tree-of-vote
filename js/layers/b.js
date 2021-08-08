@@ -6,7 +6,7 @@ addLayer("b", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#4BDC13",
+    color: "#845538",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "Buyable points", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
@@ -21,9 +21,6 @@ addLayer("b", {
         return new Decimal(1)
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
-    hotkeys: [
-        {key: "b", description: "B: Reset for Buyable points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
-    ],
     layerShown(){return true},
     tabFormat:[
         "main-display",
