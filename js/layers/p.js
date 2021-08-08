@@ -29,7 +29,8 @@ addLayer("p", {
     clickables: {
         11: {
             title:'lolyou230',
-            display() {return "A completely useless clickable."},
+            display() {if (hasUpgrade('po',13))return "Do something"
+                else return "A completely useless clickable."},
             canClick(){return true},
         },
     },
@@ -93,6 +94,11 @@ addLayer("p", {
             cost: new Decimal(10),
             unlocked(){if (hasUpgrade(this.layer,23))return true
                 else return false},
+            effect() {
+                if (hasUpgrade('po',12)) return new Decimal(2).div(10)
+                else return new Decimal(2)
+            },
+            
         },
         31: {
             title: "Elund",

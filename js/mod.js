@@ -13,11 +13,14 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.10",
+	num: "0.12",
 	name: "Atleast something",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v0.12</h3><br>
+		- Added a upgrade that divides upvoid by 10.<br>
+		- Added a upgrade in poll layer that makes the clickable in the first layer do something.<br>
 	<br><h3>v0.10</h3><br>
 		- (UNVOTE) Balanced Poll layer gain.<br>
 		- Added a upgrade that description is point x3^3 (7).<br>
@@ -63,7 +66,7 @@ function getPointGen() {
 	if (hasUpgrade('p', 11)) gain = gain.times(2)
     if (hasUpgrade('p', 12)) gain = gain.times(upgradeEffect('p', 12))
 	if (hasUpgrade('p', 14)) gain = gain.times(upgradeEffect('p', 14))
-	if (hasUpgrade('p', 24)) gain = gain.div(2)
+	if (hasUpgrade('p', 24)) gain = gain.div(upgradeEffect('p', 24))
 	if (hasUpgrade('po', 11))gain = gain.times(7)
 
 	return gain

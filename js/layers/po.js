@@ -32,7 +32,18 @@ addLayer("po", {
             title: "3^3=7",
             description: "point x3^3 (7).",
             cost: new Decimal(1),
-            tooltip:"formula:(3^3)^0.5904145830538074"
+            tooltip:"Formula:(3^3)^<br>0.5904145830538074"
+        },
+        12: {
+            title: "Meo",
+            description: "Divides the third upvoid effect by 10.",
+            cost: new Decimal(3),
+            tooltip:"After buying, it will be /0.2 instead of /2."
+        },
+        13: {
+            title: "lolyou230",
+            description: "Make the cilckable in prestige layer \"Do Something\".",
+            cost: new Decimal(3),
         },
     }
 })
