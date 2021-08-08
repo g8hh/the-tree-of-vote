@@ -25,7 +25,7 @@ addLayer("po", {
     hotkeys: [
         {key: "R", description: "R: Reset for Rigged Polls", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){if (hasUpgrade('p',31) || player[this.layer].points.gte(1)) return true
+    layerShown(){if (hasUpgrade('p',31) || player[this.layer].points.gte(1) || hasUpgrade(this.layer,11)) return true
                 else return false},
     upgrades:{
         11: {
