@@ -19,6 +19,7 @@ let VERSION = {
 
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.10</h3><br>
+		- (UNVOTE) Balanced Poll layer gain.<br>
 		- Added a upgrade that description is point x3^3 (7).<br>
 	<br><h3>v0.09</h3><br>
 		- (UNVOTE) Banlaced prestige upgrade 12.<br>
@@ -26,7 +27,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- (UNVOTE) Fixed an typo.<br>
 		- Added Polls layer.<br>
 	<br><h3>v0.08</h3><br>
-		- Added an complete useless buyable.<br>
+		- Added an complete useless cilckable.<br>
 		- Added a layer called "buyable points".<br>
 		- Make prestige point layer teal like that famous TMT mod.<br>
 		- Added a buyable that unlocks buyables.<br>
