@@ -45,8 +45,9 @@ addLayer("p", {
             description: "Boost your point gain based on your prestige point.",
             cost: new Decimal(3),
             effect() {
-                return player[this.layer].points.add(1).log10().add(1).pow(2)
+                return player[this.layer].points.add(1).log10().add(1).pow(2).add(1)
             },
+            tooltip:"(And a +1 gain as Fawwaz Arkan suggest)",
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
         13: {
