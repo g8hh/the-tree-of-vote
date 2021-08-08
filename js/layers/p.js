@@ -65,7 +65,7 @@ addLayer("p", {
             effect() {
                 return player[this.layer].points.add(1).cbrt().add(1)
             },
-            tooltip:"(and an addi",
+            tooltip:"(And a +1 gain as Fawwaz Arkan suggest)",
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         21: {
