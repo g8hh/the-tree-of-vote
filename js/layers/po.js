@@ -32,7 +32,7 @@ addLayer("po", {
             title: "3^3=7",
             description: "point x3^3 (7).",
             cost: new Decimal(1),
-            tooltip:"Formula:(3^3)^<br>0.5904145830538074"
+            tooltip:"Actual Formula:(3^3)^<br>0.5904145830538074"
         },
         12: {
             title: "Meo",
