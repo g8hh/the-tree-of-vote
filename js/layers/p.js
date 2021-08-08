@@ -47,7 +47,7 @@ addLayer("p", {
             effect() {
                 return player[this.layer].points.add(1).log10().add(1).pow(2).add(1)
             },
-            tooltip:"(And a +1 gain as Fawwaz Arkan suggest)",
+            tooltip:"(And a +1 output as Fawwaz Arkan suggest)",
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
         13: {
@@ -66,7 +66,7 @@ addLayer("p", {
             effect() {
                 return player[this.layer].points.add(1).cbrt().add(1)
             },
-            tooltip:"(And a +1 gain as Fawwaz Arkan suggest)",
+            tooltip:"(And a +1 output as Fawwaz Arkan suggest)",
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         21: {
