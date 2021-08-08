@@ -29,9 +29,10 @@ addLayer("p", {
     clickables: {
         11: {
             title:'lolyou230',
-            display() {if (hasUpgrade('po',13))return "Do something."
+            display() {if (hasUpgrade('po',13))return "Generate 0.5 Fumo Per click."
                 else return "A completely useless clickable."},
             canClick(){return true},
+            onClick(){if (hasUpgrade('po',13)) player.f.points=player.f.points.add(0.5)}
         },
     },
     upgrades:{
@@ -107,6 +108,13 @@ addLayer("p", {
             description: "Not an upgrade, don't buy this.",
             cost: new Decimal(20),
             unlocked(){if (hasUpgrade(this.layer,23))return true
+                else return false},
+        },
+        32: {
+            title: "inflation",
+            description: "Multiplies point gain by 1e1000.",
+            cost: new Decimal(50),
+            unlocked(){if (hasUpgrade(this.layer,31))return true
                 else return false},
         },
     }

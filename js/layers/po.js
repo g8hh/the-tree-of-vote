@@ -23,7 +23,7 @@ addLayer("po", {
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "R", description: "R: Reset for Rigged Polls", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "r", description: "R: Reset for Rigged Polls", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){if (hasUpgrade('p',31) || player[this.layer].points.gte(1) || hasUpgrade(this.layer,11)) return true
                 else return false},
@@ -42,7 +42,7 @@ addLayer("po", {
         },
         13: {
             title: "lolyou230",
-            description: "Make the cilckable in prestige layer \"Do Something.\"",
+            description: "Make the cilckable in prestige layer \"Do Something\".",
             cost: new Decimal(3),
         },
     }
