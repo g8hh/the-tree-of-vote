@@ -18,12 +18,12 @@ let VERSION = {
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.09</h3><br>
+	<br><h3>v0.09</h3><br>
 		- (UNVOTE) Banlaced prestige upgrade 12.<br>
 		- (UNVOTE) Changed buyable layer's display colour.<br>
 		- (UNVOTE) Fixed an typo.<br>
 		- Added Polls layer.<br>
-	<h3>v0.08</h3><br>
+	<br><h3>v0.08</h3><br>
 		- Added an complete useless buyable.<br>
 		- Added a layer called "buyable points".<br>
 		- Make prestige point layer teal like that famous TMT mod.<br>
@@ -32,7 +32,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added an upgrade that unlocks another upgrade, which unlocks an upgrade.<br>
 		- Added an upgrade that divides point gain by 2, buying it will put you into hard mode.<br>
 		- Added an upgrade called "not an upgrade don't buy this"<br>
-	<h3>v0.00</h3><br>
+	<br><h3>v0.00</h3><br>
 		- Added things.<br>
 		- Added stuff.<br>`
 
