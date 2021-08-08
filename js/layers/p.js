@@ -63,8 +63,9 @@ addLayer("p", {
             description: "Boost your point gain based on cbrt(prestige point+1).",
             cost: new Decimal(5),
             effect() {
-                return player[this.layer].points.add(1).cbrt()
+                return player[this.layer].points.add(1).cbrt().add(1)
             },
+            tooltip:"(and an addi",
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         21: {
