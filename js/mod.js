@@ -115,7 +115,7 @@ var displayThings = ["Endgame: 1e6 Rigged Poll"
 
 // Determines when the game "ends"
 function isEndgame() {
-	return (player.p0.points.gte(new Decimal(1000000)))
+	return (player.po.points.gte(new Decimal(1000000)))
 }
 
 
