@@ -13,15 +13,23 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.16",
+	num: "0.21",
 	name: "democracy was never wrong :troll_hdr:",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v0.21</h3><br>
+		- Added a upgrade that does nothing and is called "click here to waste points".<br>
+		- Added a upgrade that reads "an upgrade. Buy this" That gives a buyable point.<br>
+		- (UNVOTE) Fixed buyable point caulation.<br>
+		- Added a upgrade in rigged polls that increases the exponent of the 3^3=7 upgrade based on rigged polls.<br>
+		- Fixed fumo layer unlocked too early.<br>
+		- Added a magic missle that destory everyone's fumo points.<br>
+		- Added e.<br>
 	<br><h3>v0.16</h3><br>
-		- Added fumo layer.<br>
+		- Added fumo layer.<br>s
 		- Added some more 1 effect to some upgrade.<br>
-		- Added an upgrade called inflation that multiplies point gain by 1.01.<br>
+		- Added a upgrade called inflation that multiplies point gain by 1.01.<br>
 		- Added go to sleep.(not really)<br>
 	<br><h3>v0.13</h3><br>
 		- Added a upgrade that divides upvoid by 10.<br>
@@ -75,8 +83,8 @@ function getPointGen() {
     if (hasUpgrade('p', 12)) gain = gain.times(upgradeEffect('p', 12))
 	if (hasUpgrade('p', 14)) gain = gain.times(upgradeEffect('p', 14))
 	if (hasUpgrade('p', 24)) gain = gain.div(upgradeEffect('p', 24))
-	if (hasUpgrade('p', 32)) gain = gain.times(1.01)
-	if (hasUpgrade('po', 11))gain = gain.times(7)
+	if (hasUpgrade('p', 33)) gain = gain.times(1.1)
+	if (hasUpgrade('po', 11))gain = gain.times(upgradeEffect('po', 11))
 	if (hasUpgrade('b',11)) gain = gain.times(5)
 	if (getBuyableAmount('b',12).gte(new Decimal(1)))gain = gain.times(buyableEffect('b',12))
 
@@ -113,4 +121,5 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
+	if (oldVersion<0.17) player.f.points=new Decimal(0)
 }

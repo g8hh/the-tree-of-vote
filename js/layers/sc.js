@@ -17,7 +17,7 @@ addLayer("sc", {
     "blank",
         ["display-text",function(){
             words = ``
-            if(hasUpgrade('p',32)) words = words + '<h3>Inflaction</h3><br>Start at 0x.<br>effect ^1e-5<br><br>'
+            if(hasUpgrade('p',33)) words = words + '<h3>Inflation</h3><br>Start at 0x.<br>effect ^1e-5<br><br>'
             return words}],
         
     ],

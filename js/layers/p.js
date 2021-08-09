@@ -111,10 +111,24 @@ addLayer("p", {
                 else return false},
         },
         32: {
+            title: "InFiIipity♾",
+            description: "An upgrade. Buy this.",
+            cost: new Decimal(25),
+            unlocked(){if (hasUpgrade(this.layer,31))return true
+                else return false},
+        },
+        33: {
             title: "inflation",
             description: "Multiplies point gain by 1e1000.",
             cost: new Decimal(50),
-            unlocked(){if (hasUpgrade(this.layer,31))return true
+            unlocked(){if (hasUpgrade(this.layer,32))return true
+                else return false},
+        },
+        34: {
+            title: "foxes1338",
+            description: "Click here to waste points.",
+            cost: new Decimal(75),
+            unlocked(){if (hasUpgrade(this.layer,33))return true
                 else return false},
         },
     }

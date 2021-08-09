@@ -32,6 +32,12 @@ addLayer("po", {
             title: "3^3=7",
             description: "point x3^3 (7).",
             cost: new Decimal(1),
+            effect(){
+                ef= new Decimal(27)
+                pow=new Decimal(0.5904145830538074)
+                if (hasUpgrade(this.layer,14)) pow=pow.add(upgradeEffect(this.layer,14))
+                return ef.pow(pow)
+            },
             tooltip:"Actual Formula:(3^3)^<br>0.5904145830538074"
         },
         12: {
@@ -44,6 +50,15 @@ addLayer("po", {
             title: "lolyou230",
             description: "Make the cilckable in prestige layer \"Do Something\".",
             cost: new Decimal(3),
+            canAfford(){return false},
+        },
+        14: {
+            title: "ant warmer",
+            description: "Increases the exponent of the 3^3=7 upgrade based on rigged polls.",
+            cost: new Decimal(5),
+            effect(){
+                return player[this.layer].points.cbrt().add(1).div(40)
+            }
         },
     }
 })

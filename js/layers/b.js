@@ -34,6 +34,19 @@ addLayer("b", {
         "blank",
         "upgrades",
         ],
+    update(diff){
+        var p = new Decimal(0)
+        for(i in player[this.layer].buyables){
+        p =p.add(getBuyableAmount(this.layer,i))
+        }
+        
+        if (hasUpgrade('p',32)) p=p.add(1)
+
+        for(i in layers[this.layer].upgrades){
+            if (hasUpgrade(this.layer,i))
+            p =p.sub(layers[this.layer].upgrades[i].cost)}
+        player[this.layer].points = p
+    },
     buyables:{
         11:{
             cost(x){return new Decimal(100).pow(x+1)},
@@ -43,7 +56,7 @@ addLayer("b", {
             display(){words = `Unlock other buyable.<br>
                             Currently: Unlocked `+format(buyableEffect(this.layer,this.id))+` more buyable.<br>
                             Next: `
-                    if (getBuyableAmount(this.layer,this.id).gte(this.purchaseLimit))return words + "MAXED"
+                    if (getBuyableAmount(this.layer,this.id).gt(this.purchaseLimit))return words + "MAXED"
                     else return words + format(this.cost()) + " points."},
             
             canAfford(){return player.points.gte(this.cost())},
@@ -56,7 +69,12 @@ addLayer("b", {
 
             effect(){return getBuyableAmount(this.layer,this.id)},
 
-            purchaseLimit:new Decimal(1)
+            purchaseLimit:function(){
+                var limit = new Decimal(0)
+                if (player.po.points.gte(1) || hasUpgrade(this.layer,11) || getBuyableAmount(this.layer,12).gte(1))limit=limit.add(1)
+                
+                return limit
+            }
         },
         12:{
             unlocked(){if (buyableEffect(this.layer,11).gte(1)) return true
@@ -91,6 +109,8 @@ addLayer("b", {
             title: "Elund",
             description: "Adds 5 to base point gain, and then multiplies point gain by 5.",
             cost: new Decimal(3),
+            unlocked(){if(hasUpgrade(this.layer,this.id)||player[this.layer].points.gte(3)) return true
+                        else return false }
         },
     }
 })
