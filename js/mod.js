@@ -13,15 +13,16 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.27",
+	num: "0.28",
 	name: "democracy was never wrong :troll_hdr:",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<br><h3>v0.27</h3><br>
+	<br><h3>v0.28</h3><br>
 		- Added a layer called "community" with members as currency that boost rigged polls gain.<br>
 		- (UNVOTE) Fix challenge point caulation.<br>
 		- (UNVOTE) Try to banlance everything.<br>
+		- Added a upgrade that raise points gain by 1.1, called "^".<br>
 	<br><h3>v0.26</h3><br>
 		- Added a upgrade that multiplies point gain by (points^(1-1/ln(points+1))).<br>
 		- Added a milestone in rigged polls that unlocks an upgrade in prestige points that gives 10% of prestige points gain per second.<br>
@@ -97,6 +98,7 @@ function getPointGen() {
 	if (hasUpgrade('p', 33)) gain = gain.times(1.1)
 	if (hasUpgrade('po', 11))gain = gain.times(upgradeEffect('po', 11))
 	if (hasUpgrade('po',21)) gain = gain.mul(upgradeEffect('po', 21))
+	if (hasUpgrade('po',21)) gain = gain.pow(1.1)
 	if (hasUpgrade('b',11)) gain = gain.times(5)
 	if (getBuyableAmount('b',12).gte(new Decimal(1)))gain = gain.times(buyableEffect('b',12))
 

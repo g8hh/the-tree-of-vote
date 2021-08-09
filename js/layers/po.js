@@ -58,13 +58,13 @@ addLayer("po", {
         13: {
             title: "lolyou230",
             description: "Make the cilckable in prestige layer \"Do Something\".",
-            cost: new Decimal(3),
+            cost: new Decimal(5),
             canAfford(){return false},
         },
         14: {
             title: "ant warmer",
             description: "Increases the exponent of the 3^3=7 upgrade based on rigged polls.",
-            cost: new Decimal(5),
+            cost: new Decimal(10),
             effect(){
                 return player[this.layer].points.cbrt().add(1).div(40)
             }
@@ -72,13 +72,18 @@ addLayer("po", {
         21: {
             title: "upvoid",
             description: "Multiplies point gain by (points^(1-1/ln(points+1))).",
-            cost: new Decimal(10),
+            cost: new Decimal(50),
             effect(){
                 mul = (player.points.add(1).pow(new Decimal(1).sub(Decimal.div(1,player.points.add(1).ln()))))
                 mul = mul.add(1).log10()
                 return mul
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        22: {
+            title: "^",
+            description: "Raise point gain by 1.1.",
+            cost: new Decimal(1000),
         },
     }
 })
