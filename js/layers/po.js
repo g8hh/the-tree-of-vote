@@ -16,6 +16,7 @@ addLayer("po", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() {
         let mult = new Decimal(1)
+        if (player.co.points.gte(1)) mult = mult.mul(layers.co.effect())
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -25,7 +26,8 @@ addLayer("po", {
     hotkeys: [
         {key: "r", description: "R: Reset for Rigged Polls", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){if (hasUpgrade('p',31) || player[this.layer].points.gte(1) || hasUpgrade(this.layer,11)) return true
+    layerShown(){if (hasUpgrade('p',31) || player[this.layer].points.gte(1) || hasUpgrade(this.layer,11)
+                || player.co.points.gte(1) || player.e.points.gte(1) ) return true
                 else return false},
     milestones:{
         1:{

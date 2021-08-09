@@ -39,14 +39,19 @@ addLayer("c", {
         "challenges",
         ],
     update(diff){
+        var p = new Decimal(0)
+        for(i in player[this.layer].challenges)
+        p = p.add(challengeCompletions(this.layer, i))
+
+        player[this.layer].points = p
     },
     challenges: {
         11: {
             name: "elunds",
             challengeDescription: "Your point gain is /0.5 in this challenge.",
-            goalDescription:"Get 100000 points.",
+            goalDescription:"Get 1e15 points.",
             rewardDescription:"Boost point gain by 2x.",
-            canComplete: function() {return player.points.gte(1e5)},
+            canComplete: function() {return player.points.gte(1e15)},
             
         },
         

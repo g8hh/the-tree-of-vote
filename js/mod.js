@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Vote",
 	author: "ajchen and alots of people",
 	pointsName: "points",
-	modFiles: ["layers/f.js","layers/e.js","layers/c.js","layers/p.js","layers/po.js","layers/sc.js","layers/b.js", "tree.js"],
+	modFiles: ["layers/f.js","layers/e.js","layers/co.js","layers/c.js","layers/p.js","layers/po.js","layers/sc.js","layers/b.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.21",
+	num: "0.27",
 	name: "democracy was never wrong :troll_hdr:",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v0.27</h3><br>
+		- Added a layer called "community" with members as currency that boost rigged polls gain.<br>
+		- (UNVOTE) Fix challenge point caulation.<br>
+		- (UNVOTE) Try to banlance everything.<br>
 	<br><h3>v0.26</h3><br>
 		- Added a upgrade that multiplies point gain by (points^(1-1/ln(points+1))).<br>
 		- Added a milestone in rigged polls that unlocks an upgrade in prestige points that gives 10% of prestige points gain per second.<br>
@@ -104,12 +108,12 @@ function addedPlayerData() { return {
 }}
 
 // Display extra things at the top of the page
-var displayThings = ["Endgame: 6 Buyable points"
+var displayThings = ["Endgame: 1e6 Rigged Poll"
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return (player.b.points.gte(new Decimal(6)))
+	return (player.p0.points.gte(new Decimal(1000000)))
 }
 
 
