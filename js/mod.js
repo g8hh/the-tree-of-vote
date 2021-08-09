@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Vote",
 	author: "ajchen and alots of people",
 	pointsName: "points",
-	modFiles: ["layers/f.js","layers/p.js","layers/po.js","layers/sc.js","layers/b.js", "tree.js"],
+	modFiles: ["layers/f.js","layers/e.js","layers/c.js","layers/p.js","layers/po.js","layers/sc.js","layers/b.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -18,6 +18,12 @@ let VERSION = {
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v0.26</h3><br>
+		- Added a upgrade that multiplies point gain by (points^(1-1/ln(points+1))).<br>
+		- Added a milestone in rigged polls that unlocks an upgrade in prestige points that gives 10% of prestige points gain per second.<br>
+		- Addd a challenge that doubles your point gain, with the reward being x2 point gain (same as challenge condition).<br>
+		- Added a 10 buyable point milestone.<br>
+		- Make a whole layer of anti challenges like elunds.<br>
 	<br><h3>v0.21</h3><br>
 		- Added a upgrade that does nothing and is called "click here to waste points".<br>
 		- Added a upgrade that reads "an upgrade. Buy this" That gives a buyable point.<br>
@@ -79,12 +85,14 @@ function getPointGen() {
 	let gain = new Decimal(1)
 	if (hasUpgrade('b',11)) gain = gain.add(5)
 //Base Goes UP, Multi Goes DOWN
+	if (inChallenge('c', 11)||hasChallenge('c', 11)) gain = gain.times(2)
 	if (hasUpgrade('p', 11)) gain = gain.times(2)
     if (hasUpgrade('p', 12)) gain = gain.times(upgradeEffect('p', 12))
 	if (hasUpgrade('p', 14)) gain = gain.times(upgradeEffect('p', 14))
 	if (hasUpgrade('p', 24)) gain = gain.div(upgradeEffect('p', 24))
 	if (hasUpgrade('p', 33)) gain = gain.times(1.1)
 	if (hasUpgrade('po', 11))gain = gain.times(upgradeEffect('po', 11))
+	if (hasUpgrade('po',21)) gain = gain.mul(upgradeEffect('po', 21))
 	if (hasUpgrade('b',11)) gain = gain.times(5)
 	if (getBuyableAmount('b',12).gte(new Decimal(1)))gain = gain.times(buyableEffect('b',12))
 

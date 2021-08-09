@@ -21,6 +21,10 @@ addLayer("p", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
+    passiveGeneration(){
+        if (hasUpgrade(this.layer,41))return 0.1
+        else return 0
+    },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
         {key: "p", description: "P: Reset for prestige points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -129,6 +133,13 @@ addLayer("p", {
             description: "Click here to waste points.",
             cost: new Decimal(75),
             unlocked(){if (hasUpgrade(this.layer,33))return true
+                else return false},
+        },
+        41: {
+            title: "watglan",
+            description: "Auto gain 10% of prestige point on prestige per second.",
+            cost: new Decimal(1e8),
+            unlocked(){if (hasMilestone("po",1))return true
                 else return false},
         },
     }

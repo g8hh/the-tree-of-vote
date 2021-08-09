@@ -27,6 +27,13 @@ addLayer("po", {
     ],
     layerShown(){if (hasUpgrade('p',31) || player[this.layer].points.gte(1) || hasUpgrade(this.layer,11)) return true
                 else return false},
+    milestones:{
+        1:{
+            requirementDescription: "100 Rigged Polls",
+            effectDescription: "Unlock an upgrade in prestige layer.",
+            done() { return player[this.layer].points.gte(100) },
+        },
+    },
     upgrades:{
         11: {
             title: "3^3=7",
@@ -42,7 +49,7 @@ addLayer("po", {
         },
         12: {
             title: "Meo",
-            description: "Divides the third upvoid effect by 10.",
+            description: "Divides the fourth upvoid effect by 10.",
             cost: new Decimal(3),
             tooltip:"After buying, it will be /0.2 instead of /2."
         },
@@ -59,6 +66,17 @@ addLayer("po", {
             effect(){
                 return player[this.layer].points.cbrt().add(1).div(40)
             }
+        },
+        21: {
+            title: "upvoid",
+            description: "Multiplies point gain by (points^(1-1/ln(points+1))).",
+            cost: new Decimal(10),
+            effect(){
+                mul = (player.points.add(1).pow(new Decimal(1).sub(Decimal.div(1,player.points.add(1).ln()))))
+                mul = mul.add(1).log10()
+                return mul
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
     }
 })

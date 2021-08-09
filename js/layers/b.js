@@ -20,7 +20,10 @@ addLayer("b", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
-    doReset(resettingLayer){},
+    doReset(resettingLayer){
+        if (['e'].includes(resettingLayer)) layerDataReset(this.layer)
+
+    },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     layerShown(){return true},
     tabFormat:[
@@ -46,6 +49,13 @@ addLayer("b", {
             if (hasUpgrade(this.layer,i))
             p =p.sub(layers[this.layer].upgrades[i].cost)}
         player[this.layer].points = p
+    },
+    milestones:{
+        1:{
+            requirementDescription: "9 Buyable point",
+            effectDescription: "Unlock Anti-challenge.",
+            done() { return player[this.layer].points.gte(9) },
+        },
     },
     buyables:{
         11:{
