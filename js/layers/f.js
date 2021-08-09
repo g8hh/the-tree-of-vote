@@ -36,7 +36,8 @@ addLayer("f", {
         ],
     upgrades:{
         11: {
-            cost: new Decimal(0),
+            cost: new Decimal(5),
+            description: "Unlock the third rigged poll upgrade.",
             canAfford(){return false},
         },
     }
