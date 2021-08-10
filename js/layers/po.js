@@ -68,7 +68,7 @@ addLayer("po", {
                 setBuyableAmount(this.layer,this.id,new Decimal(10))
             },
             effect(){
-                if (getBuyableAmount(this.layer,this.id).gte(0.0000)) return new Decimal(2)
+                if (getBuyableAmount(this.layer,this.id).gt(0)) return new Decimal(2)
                 else return 1
             },
         },
