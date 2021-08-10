@@ -36,13 +36,17 @@ addLayer("po", {
             done() { return player[this.layer].points.gte(100) },
         },
     },
-    clickables: {
+    buyables: {
         11: {
+            cost(x){return new Decimal(100)},
             title:'Elund',
-            display() {if (hasMilestone(this.layer,11))return "Generate 0.5 Fumo Per click."
-                else return "A completely useless clickable."},
-            canClick(){return true},
-            onClick(){if (hasUpgrade('po',13)) player.f.points=player.f.points.add(0.5)}
+            display() {return "Doubles point gain for 10 seconds,<br>Cost:100 Rigged Polls."},
+            unlocked(){//if (IDONTFREAKINGKNOWI'MBADATPROGRAMMING)
+                return false},
+            style: {
+                'height': '150px',
+                'width': '150px'
+            },
         },
     },
     upgrades:{
