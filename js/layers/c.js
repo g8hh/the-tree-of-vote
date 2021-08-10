@@ -54,6 +54,13 @@ addLayer("c", {
             canComplete: function() {return player.points.gte(1e15)},
             
         },
-        
+        12: {
+            name: "^",
+            challengeDescription: "Your point gain is ^0.1*11 in this challenge.",
+            goalDescription:"This is an free challenge.",
+            rewardDescription:"Nope.",
+            canComplete: function() {return player.points.gte(0)},
+            
+        },
     },
 })

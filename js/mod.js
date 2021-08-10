@@ -13,12 +13,16 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.30",
+	num: "0.31",
 	name: "democracy was never wrong :troll_hdr:",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<br><h3>v0.29</h3><br>
+	<br><h3>v0.31</h3><br>
+		- (UNVOTE) Fixed inflation-HOLY GOD I JUST FIND THAT.<br>
+		- (UNVOTE) Try to banlance everything CUZ THAT INFLATION BUG.<br>
+		- Added a challenge that raise points gain by 1.1, called "^".<br>
+	<br><h3>v0.30</h3><br>
 		- (UNVOTE) Fixed upvoid upgrade's effect.<br>
 		- (UNVOTE) Try to banlance everything again.<br>
 		- Added a upgrade that multiplies point gain by light mode.<br>
@@ -96,6 +100,7 @@ function getPointGen() {
 	if (hasUpgrade('b',11)) gain = gain.add(5)
 //Base Goes UP, Multi Goes DOWN
 	if (inChallenge('c', 11)||hasChallenge('c', 11)) gain = gain.times(2)
+	if (inChallenge('c', 12)) gain = gain.pow(1.1)
 	if (hasUpgrade('p', 11)) gain = gain.times(2)
     if (hasUpgrade('p', 12)) gain = gain.times(upgradeEffect('p', 12))
 	if (hasUpgrade('p', 14)) gain = gain.times(upgradeEffect('p', 14))
@@ -145,6 +150,7 @@ function fixOldSave(oldVersion){
 	if (oldVersion<0.17) player.f.points=new Decimal(0)
 	if (oldVersion<0.30) {player.points=player.points.min(1e30);
 		player.po.points=player.po.points.min(1e7)
-		player.co.points=player.co.points.min(3)}
+		player.co.points=player.co.points.min(5)
+		player.e.points=player.e.points.min(4)}
 
 }
