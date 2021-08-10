@@ -13,7 +13,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.31",
+	num: "0.32",
 	name: "democracy was never wrong :troll_hdr:",
 }
 
@@ -22,6 +22,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- (UNVOTE) Fixed inflation-HOLY GOD I JUST FIND THAT.<br>
 		- (UNVOTE) Try to banlance everything CUZ THAT INFLATION BUG.<br>
 		- Added a challenge that raise points gain by 1.1, called "^".<br>
+		- Added a challenge where buyables have square root effect, but the reward is buyables are twice as atrong.<br>
 	<br><h3>v0.30</h3><br>
 		- (UNVOTE) Fixed upvoid upgrade's effect.<br>
 		- (UNVOTE) Try to banlance everything again.<br>
@@ -47,7 +48,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added a magic missle that destory everyone's fumo points.<br>
 		- Added e.<br>
 	<br><h3>v0.16</h3><br>
-		- Added fumo layer.<br>s
+		- Added fumo layer.<br>
 		- Added some more 1 effect to some upgrade.<br>
 		- Added a upgrade called inflation that multiplies point gain by 1.01.<br>
 		- Added go to sleep.(not really)<br>

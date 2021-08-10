@@ -123,7 +123,7 @@ addLayer("p", {
         },
         33: {
             title: "inflation",
-            description: "Multiplies point gain by 1e1000.",
+            description: "Multiplies point gain by 1.1 .",
             cost: new Decimal(50),
             unlocked(){if (hasUpgrade(this.layer,32))return true
                 else return false},

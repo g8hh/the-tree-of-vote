@@ -102,7 +102,12 @@ addLayer("b", {
             
             canAfford(){return player.po.points.gte(this.cost())},
 
-            effect(){return new Decimal(2).pow(getBuyableAmount(this.layer,this.id))},
+            effect(){
+                eff= new Decimal(2).pow(getBuyableAmount(this.layer,this.id))
+                if (inChallenge('c', 13))eff=eff.sqrt()
+                if (hasChallenge('c', 13))eff=eff.mul(2)
+                return eff
+            },
 
             buy() {
                 player.po.points = player.po.points.sub(this.cost())
