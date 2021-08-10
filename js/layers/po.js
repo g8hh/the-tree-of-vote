@@ -5,6 +5,9 @@ addLayer("po", {
     startData() { return {
         unlocked: false,
 		points: new Decimal(0),
+        spellTimes:{
+            11:new Decimal(0)
+        },
     }},
     color: "#4BDC13",
     branches:["p"],
@@ -29,6 +32,13 @@ addLayer("po", {
     layerShown(){if (hasUpgrade('p',31) || player[this.layer].points.gte(1) || hasUpgrade(this.layer,11)
                 || player.co.points.gte(1) || player.e.points.gte(1) ) return true
                 else return false},
+    update(diff){
+        
+        for(i in player[this.layer].buyables)
+        setBuyableAmount(this.layer,i,getBuyableAmount(this.layer,i).minus(diff).max(0));
+
+
+    },
     milestones:{
         1:{
             requirementDescription: "100 Rigged Polls",
@@ -38,14 +48,28 @@ addLayer("po", {
     },
     buyables: {
         11: {
-            cost(x){return new Decimal(100)},
+            cost(x){return new Decimal(1)},
             title:'Elund',
-            display() {return "Doubles point gain for 10 seconds,<br>Cost:100 Rigged Polls."},
-            unlocked(){//if (IDONTFREAKINGKNOWI'MBADATPROGRAMMING)
-                return false},
+            display() {
+                words = "Doubles point gain for 10 seconds,<br>Cost:100 Rigged Polls.<br>Currently: "
+                words = words+format(getBuyableAmount(this.layer,this.id))+"s."
+                return words
+            },
+            unlocked(){return true},
+            purchaseLimit:new Decimal(0.01),
             style: {
                 'height': '150px',
                 'width': '150px'
+            },
+            canAfford(){if (getBuyableAmount(this.layer,this.id).lte(0) && player[this.layer].points.gte(100))return true;
+                        else return false},
+            buy(){
+                player[this.layer].points=player[this.layer].points.sub(100)
+                setBuyableAmount(this.layer,this.id,new Decimal(10))
+            },
+            effect(){
+                if (getBuyableAmount(this.layer,this.id).gte(0.0000)) return new Decimal(2)
+                else return 1
             },
         },
     },

@@ -13,7 +13,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.29",
+	num: "0.30",
 	name: "democracy was never wrong :troll_hdr:",
 }
 
@@ -22,6 +22,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- (UNVOTE) Fixed upvoid upgrade's effect.<br>
 		- (UNVOTE) Try to banlance everything again.<br>
 		- Added a upgrade that multiplies point gain by light mode.<br>
+		- Added a clickable that doubles point gain for 10 seconds but costs rigged polls.<br>
 	<br><h3>v0.28</h3><br>
 		- Added a layer called "community" with members as currency that boost rigged polls gain.<br>
 		- (UNVOTE) Fixed challenge point caulation.<br>
@@ -102,7 +103,8 @@ function getPointGen() {
 	if (hasUpgrade('p', 33)) gain = gain.times(1.1)
 	if (hasUpgrade('po', 11))gain = gain.times(upgradeEffect('po', 11))
 	if (hasUpgrade('po',21)) gain = gain.mul(upgradeEffect('po', 21))
-	if (hasUpgrade('po',21)) gain = gain.pow(1.1)
+	if (hasUpgrade('po',22)) gain = gain.pow(1.1)
+	if (getBuyableAmount('po',11).gte(new Decimal(0)))gain = gain.times(buyableEffect('po',11))// THIS IS X2
 	if (hasUpgrade('b',11)) gain = gain.times(5)
 	if (getBuyableAmount('b',12).gte(new Decimal(1)))gain = gain.times(buyableEffect('b',12))
 	if (hasUpgrade('co',11)) gain = gain.times(2)
