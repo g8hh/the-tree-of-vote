@@ -103,7 +103,7 @@ addLayer("po", {
             description: "Increases the exponent of the 3^3=7 upgrade based on rigged polls.",
             cost: new Decimal(10),
             effect(){
-                return player[this.layer].points.add(1).cbrt().div(80)
+                return player[this.layer].points.add(1).cbrt().div(80).min(1)
             },
             effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
         },
