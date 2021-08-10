@@ -36,6 +36,15 @@ addLayer("po", {
             done() { return player[this.layer].points.gte(100) },
         },
     },
+    clickables: {
+        11: {
+            title:'Elund',
+            display() {if (hasMilestone(this.layer,11))return "Generate 0.5 Fumo Per click."
+                else return "A completely useless clickable."},
+            canClick(){return true},
+            onClick(){if (hasUpgrade('po',13)) player.f.points=player.f.points.add(0.5)}
+        },
+    },
     upgrades:{
         11: {
             title: "3^3=7",
@@ -66,15 +75,16 @@ addLayer("po", {
             description: "Increases the exponent of the 3^3=7 upgrade based on rigged polls.",
             cost: new Decimal(10),
             effect(){
-                return player[this.layer].points.cbrt().add(1).div(40)
-            }
+                return player[this.layer].points.add(1).cbrt().div(80)
+            },
+            effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
         },
         21: {
             title: "upvoid",
             description: "Multiplies point gain by (points^(1-1/ln(points+1))).",
             cost: new Decimal(50),
             effect(){
-                mul = (player.points.add(1).pow(new Decimal(1).sub(Decimal.div(1,player.points.add(1).ln()))))
+                mul = (player.points.add(1).pow(new Decimal(1).sub(Decimal.div(1,player.points.add(1).log10()))))
                 mul = mul.add(1).log10()
                 return mul
             },

@@ -1,17 +1,17 @@
-# Buyables
+# buyable
 
-Buyables are usually things that can be bought multiple times with scaling costs. They come with optional buttons that can be used for respeccing or selling buyables, among other things.
+buyable 通常是可以多次购买的价格增长物品，带有可选的按钮，并且可以买入和卖出。
 
-The amount of a buyable owned is a `Decimal`. 
+已购买的 buyable 数量是 `Decimal`。 
 
-Useful functions for dealing with buyables and implementing their effects:
+有关 buyable 与其增益的有用的函数:
 
-- getBuyableAmount(layer, id): get the amount of the buyable the player has
-- addBuyables(layer, id, amount): add to the amount of the buyable
-- setBuyableAmount(layer, id, amount): set the amount of the buyable the player has
-- buyableEffect(layer, id): Returns the current effects of the buyable, if any.
+- getBuyableAmount(layer, id): 获取玩家已购买的指定 buyable 数量
+- addBuyables(layer, id, amount): 增加 amount 个指定 buyable
+- setBuyableAmount(layer, id, amount): 设置指定 buyable 数量为 amount
+- buyableEffect(layer, id): 返回由指定 buyable 提供的 effect
 
-Buyables should be formatted like this:
+buyable 应当如此编写：
 
 ```js
 buyables: {
@@ -29,58 +29,58 @@ buyables: {
 }
 ```
 
-Features:
+特性：
 
-- title: **optional**. displayed at the top in a larger font. It can also be a function that returns updating text.
+- title: **可选**。在 buyable 的顶端显示，可以使用函数来实现动态文本。
 
-- cost(): cost for buying the next buyable. Can have an optional argument "x" to calculate the cost of the x+1th purchase. (x is a `Decimal`).
-    Can return an object if there are multiple currencies.
+- cost(): 下一次购买的价格，有一个可选的参数 x，表示第 x + 1 次购买的加个(x 是一个 `Decimal`)。
+    如果需要多种货币，可以返回一个对象
                     
-- effect(): **optional**. A function that calculates and returns the current values of bonuses of this buyable.  Can have an optional argument "x" to calculate the effect of having x of the buyable.. 
-    Can return a value or an object containing multiple values.
+- effect(): **可选**。返回基于当前 buyable 数量提供的增益，有一个可选的参数 x，表示 buyable 的数量是 x。 
+    如果有多个增益的话，也可以返回一个对象。
 
-- display(): A function returning everything that should be displayed on the buyable after the title, likely including the description, amount bought, cost, and current effect. Can use basic HTML.
+- display(): 在 title 之后应当显示的所有内容，包括描述、已有数量、价格之类的，可以使用 HTML。
 
-- unlocked(): **optional**. A function returning a bool to determine if the buyable is visible or not. Default is unlocked.
+- unlocked(): **可选**。返回一个 Boolean，表示这个 buyable 是否可见。默认可见。
 
-- canAfford(): A function returning a bool to determine if you can buy one of the buyables.
+- canAfford(): 返回一个 Boolean，表示玩家是否可以购买一个此 buyable 。
 
-- buy(): A function that implements buying one of the buyable, including spending the currency.
+- buy(): 实现玩家购买一个 buyable 的函数，包括扣钱。
 
-- buyMax(): **optional**. A function that implements buying as many of the buyable as possible.
+- buyMax(): **可选**。实现玩家购买最大 buyable 的方法。
 
-- style: **optional**. Applies CSS to this buyable, in the form of an object where the keys are CSS attributes, and the values are the values for those attributes (both as strings).
+- style: **可选**。以对象的格式，控制此 buyable 的 css。
         
-- purchaseLimit: **optional**. The limit on how many of the buyable can be bought. The default is no limit.
+- purchaseLimit: **可选**。此 buyable 的上限，默认为无上限。
 
-- marked: **optional** Adds a mark to the corner of the buyable. If it's "true" it will be a star, but it can also be an image URL.
+- marked: **可选** 如果是 "true"，会在 buyable 的角落里出现一个星号，也可以是图片的 url。
 
-- tooltip: **optional**. Adds a tooltip to this buyable, appears when it is hovered over. Can use basic HTML. Default is no tooltip. If this returns an empty value, that also disables the tooltip.
+- tooltip: **可选**. 给 buyable 增加一个鼠标悬浮时出现的 tooltip，可以使用 HTML。
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar.
+- layer: **自动**。与所在的 layer 的名字相同，所以你可以使用 `player[this.layer].points` 这样的代码。
 
-- id: **assigned automagically**. It's the "key" which the buyable was stored under, for convenient access. The buyable in the example's id is 11.
+- id: **自动**。此 buyable 的 id，在这个例子中是 "11"。
 
-Sell One/Sell All:
+卖一个/卖全部：
 
-Including a `sellOne` or `sellAll` function will cause an additional button to appear beneath the buyable. They are functionally identical, but "sell one" appears above "sell all". You can also use them for other things.
+添加一个 `sellOne` 或 `sellAll` 函数会在 buyable 下面，功能是一样的，但是 卖一个 会在 卖全部 上面，也可以有其他的用处。
 
-- sellOne/sellAll(): **optional**. Called when the button is pressed. The standard use would be to decrease/reset the amount of the buyable, and possibly return some currency to the player.
+- sellOne/sellAll(): **可选**。当上述按钮被按下时调用这个函数，标准用法是减少 buyable 的数量然后退还货币。
 
-- canSellOne/canSellAll(): **optional**. booleans determining whether or not to show the buttons. If  "canSellOne/All" is absent but "sellOne/All" is present, the appropriate button will always show.
-
-
-To add a respec button, or something similar, add the respecBuyables function to the main buyables object (not individual buyables).
-You can use these features along with it: 
-
-- respec(): **optional**. This is called when the button is pressed (after a toggleable confirmation message).
-
-- respecText: **optional**. Text to display on the respec Button.
-
-- showRespec(): **optional**. A function determining whether or not to show the button, if respecBuyables is defined. Defaults to true if absent.
-
-- respecMessage: **optional**. A custom confirmation message on respec, in place of the default one.
+- canSellOne/canSellAll(): **可选**。返回一个 Boolean，表示是否可以卖一个或者卖全部。
 
 
+如果想要增加一个转生按钮或者其他类似的东西，在**主 buyable** 对象中添加 respecBuyables 函数（而不是在单个 buyable 中）。
+你可以用这些函数： 
 
-- branches: **optional**, This is primarially useful for buyable trees. An array of buyable ids. A line will appear from this buyable to all of the buyables in the list. Alternatively, an entry in the array can be a 2-element array consisting of the buyable id and a color value. The color value can either be a string with a hex color code, or a number from 1-3 (theme-affected colors). A third element in the array optionally specifies line width.
+- respec(): **可选**。当转生按钮被按下以及确认后调用此函数。
+
+- respecText: **可选**。在转生按钮上的文本。
+
+- showRespec(): **可选**。返回一个 Boolean，表示是否显示转生按钮，在 respecBuyables 定义了的情况下默认为显示。
+
+- respecMessage: **可选**。自定义的确认消息，替代原来的。
+
+
+
+- branches: **可选**。这主要用于 buyable 树，具体使用方式与升级树相似。

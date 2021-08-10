@@ -1,14 +1,14 @@
-# Challenges
+# 挑战
 
-Challenges can have fully customizable win conditions. Useful functions for dealing with Challenges and implementing their effects:
+挑战有完全自定义的获胜条件。这些函数可以帮助你开发挑战：
 
-- inChallenge(layer, id): determine if the player is in a given challenge (or another challenge on the same layer that counts as this one).
-- hasChallenge(layer, id): determine if the player has completed the challenge.
-- challengeCompletions(layer, id): determine how many times the player completed the challenge.
-- maxedChallenge(layer, id): determines if the player has reached the maximum completions.
-- challengeEffect(layer, id): Returns the current effects of the challenge, if any.
+- inChallenge(layer, id): 判断玩家是否在指定的挑战中（或是指定 layer 其他拥有此挑战的效果的挑战中(即 countsAs)）
+- hasChallenge(layer, id): 判断玩家是否完成了指定的挑战
+- challengeCompletions(layer, id): 获得玩家完成了几次指定的挑战
+- maxedChallenge(layer, id): 判断玩家是否在完成了最多次数的指定挑战
+- challengeEffect(layer, id): 返回指定挑战提供的 effect
 
-Challenges are stored in the following format:
+挑战应该这样编写：
 
 ```js
 challenges: {
@@ -22,59 +22,57 @@ challenges: {
 }
 ```
 
-Usually, each challenge should have an id where the first digit is the row and the second digit is the column.
+一般来讲，挑战应该有一个 id，这个 id 的两个数字分别指明了挑战所处于的行和列。
 
-Individual Challenges can have these features:
+每个挑战有这些特性：
 
-- name: Name of the challenge, can be a string or a function. Can use basic HTML.
+- name: 挑战的名字，可以使用函数和 HTML。
 
-- challengeDescription: A description of what makes the challenge a challenge. *You will need to implement these elsewhere.* It can also be a function that returns updating text. Can use basic HTML.
+- challengeDescription: 一段描述为什么挑战是挑战的文本，*你需要在别的地方实现这个效果*。可以使用函数和 HTML。
 
-- goalDescription: A description of the win condition for the challenge. It can also be a function that returns updating text.
-    Can use basic HTML. (Optional if using the old goal system)
+- goalDescription: 一段描述挑战目标的文本，可以使用函数和HTML。 (如果使用旧的目标系统的话，这里是可选的)
 
-- canComplete(): A function that returns true if you meet the win condition for the challenge. Returning a number will allow bulk completing the challenge.
-    (Optional if using the old goal system)
+- canComplete(): 如果玩家满足了获胜条件，返回 true，如果返回了一个数字，则视作批量完成了挑战。 (如果使用旧的目标系统的话，这里是可选的)
 
-- rewardDescription: A description of the reward's effect. *You will also have to implement the effect where it is applied.* It can also be a function that returns updating text. Can use basic HTML.
+- rewardDescription: 一段描述挑战奖励的文本，*你需要在别的地方实现这个效果*。可以使用函数和 HTML。
 
-- rewardEffect(): **optional**. A function that calculates and returns the current values of any bonuses from the reward. Can return a value or an object containing multiple values. Can use basic HTML.
+- rewardEffect(): **可选**。用于计算该成就能提供的 effect，可以是单个数字也可以是一个对象。
 
-- rewardDisplay(): **optional**. A function that returns a display of the current effects of the reward with formatting. Default behavior is to just display the a number appropriately formatted.
+- rewardDisplay(): **可选**。返回带有自定义格式的 effect，默认行为是只使数字格式正确。
 
-- fullDisplay(): **OVERRIDE**. Overrides the other displays and descriptions, and lets you set the full text for the challenge. Can use basic HTML.
+- fullDisplay(): **覆写**。允许你重载挑战中的所有文本，可以使用 HTML。
 
-- unlocked(): **optional**. A function returning a bool to determine if the challenge is visible or not. Default is unlocked.
+- unlocked(): **可选**。返回一个 Boolean，表示挑战是否可见。
 
-- onComplete() - **optional**. this function will be called when the challenge is completed when previously incomplete.
+- onComplete() - **可选**。当挑战第一次被完成时，调用此函数。
 
-- onEnter() - **optional**. this function will be called when entering the challenge
+- onEnter() - **可选**。当进入挑战时，调用此函数。
 
-- onExit() - **optional**. this function will be called when exiting the challenge in any way
+- onExit() - **可选**。以任何方式退出挑战时，调用此函数。
 
-- countsAs: **optional**. If a challenge combines the effects of other challenges in this layer, you can use this. An array of challenge ids. The player is effectively in all of those challenges when in the current one.
+- countsAs: **可选**。如果某个挑战是其他几个挑战的效果的混合，在这里用一个数组写入其他挑战的 id。当玩家开启这个挑战时，其他几个挑战也会生效。
 
-- completionLimit: **optional**. the amount of times you can complete this challenge. Default is 1 completion.
+- completionLimit: **可选**。挑战完成次数上限。
 
-- style: **optional**. Applies CSS to this challenge, in the form of an object where the keys are CSS attributes, and the values are the values for those attributes (both as strings).
+- style: **可选**。以对象的形式对挑战应用 css。
 
-- marked: **optional** Adds a mark to the corner of the challenge. If it's "true" it will be a star, but it can also be an image URL. By default, if the challenge has multiple completions, it will be starred at max completions.
+- marked: **可选**。如果为 true，在挑战的角落里显示一个星号。也可以设置为自定义的图片 url。默认情况下，当挑战完成次数达到上限时，显示这个星号。
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do player[this.layer].points or similar
+- layer: **自动**。等同于所在 layer 的名。
 
-- id: **assigned automagically**. It's the "key" which the challenge was stored under, for convenient access. The challenge in the example's id is 11.
+- id: **自动**。等同于此挑战的 id，这个例子中是 "11"。
 
 
 
-The old goal system uses these features:
+旧版目标系统是这样的：
 
-- goal: **deprecated**, A Decimal for the amount of currency required to beat the challenge. By default, the goal is in basic Points. The goal can also be a function if its value changes.
+- goal: **过时**。一个 Decimal，表示完成挑战需要多少货币。默认情况下使用基本货币。可以使用函数。
 
-- currencyDisplayName: **deprecated**. the name to display for the currency for the goal
+- currencyDisplayName: **过时**。用于显示的需求货币名。
 
-- currencyInternalName: **deprecated**. the internal name for that currency
+- currencyInternalName: **过时**。需求货币的内部名。
 
-- currencyLayer: **deprecated**. the internal name of the layer that currency is stored in. If it's not in a layer, omit. If it's not stored directly in a layer, instead use the next feature.
+- currencyLayer: **过时**。需求货币所在的 layer。如果其处于全局，留空。如果其不直接处于 layer 中，使用下一个特性。
 
-- currencyLocation(): **deprecated**. if your currency is stored in something inside a layer (e.g. a buyable's amount), you can access it this way. This is a function returning the object in "player" that contains the value (like `player[this.layer].buyables`)
+- currencyLocation(): **过时**。若你所需的货币不直接存储在 layer 中，例如 buyable 的数量，你可以通过这个方式访问。这个函数应当返回 player 中包含指定货币的一个对象 (例如 `player[this.layer].buyables`)。
 

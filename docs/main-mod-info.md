@@ -1,47 +1,47 @@
 # mod.js
 
-Most of the non-layer code and data that you're likely to edit is here in [mod.js](/js/mod.js).
-Everything in [mod.js](/js/mod.js) will not be altered by updates, besides the addition of new things.
+大部分不属于 layer 的数据都需要在 [mod.js](/js/mod.js) 中修改。
+[mod.js](/js/mod.js) 中的东西通常不会被更新修改，除非添加新的东西。
 
-Here's a breakdown of what's in it:
+我们把它拆开，看看它都有什么：
 
-- modInfo is where most of the basic configuration for the mod is. It contains:
-    - name: The name of your mod. (a string)
-    - id: The id for your mod, a unique string that is used to determine savefile location. Be sure to set it when you start making a mod, and don't change it later because it will erase all saves.
-    - author: The name of the author, displayed in the info tab.
-    - pointsName: This changes what is displayed instead of "points" for the main currency. (It does not affect it in the code.)
-    - modFiles: An array of file addresses which will be loaded for this mod. Using smaller files makes it easier to find what you're looking for.
+- modInfo 包含了我们这个 mod 的大部分参数。这包括:
+    - name: mod 的名字。
+    - id: mod 的 id，这与存档有关，所以需要选择一个独特的 id，并且不要在中途改动。
+    - author: 作者的名字，会在 info 标签页显示。
+    - pointsName: 决定了主要货币（默认是 `points`）的显示名，不会影响代码。
+    - modFiles: 这个 mod 所需要加载的文件地址的列表。
     
-    - discordName, discordLink: If you have a Discord server or other discussion place, you can add a link to it.
+    - discordName, discordLink: 如果你有一个 discord 群组或者其他什么东西，可以放在这里。
 
-        "discordName" is the text on the link, and "discordLink" is the url of an invite. If you're using a Discord invite, please make sure it's set to never expire.
+        "discordName" 是文本，"discordLink" 是一个邀请连接。如果你要用 discord 话，记得把邀请连接设为永不过期。
 
-    - offlineLimit: The maximum amount of offline time that the player can accumulate, in hours. Any extra time is lost. (a number)
+    - offlineLimit: 玩家最长能积累的离线时间，多余的离线时间会被扔掉。
 
-        This is useful because most of these mods are fast-paced enough that too much offline time ruins the balance, such as the time in between updates. That is why I suggest developers disable offline time on their own savefile.
+        这个选项十分有用，很多 TMT mod 是节奏较快的，如果离线时间过长就会破坏平衡。这也同样是为什么建议开发者测试游戏时关闭离线时间的原因。
 
-    - initialStartPoints: A Decimal for the amount of points a new player should start with.
+    - initialStartPoints: 一个玩家开始新游戏时应当拥有的点数数量。
 
-- VERSION is used to describe the current version of your mod. It contains:
-    - num: The mod's version number, displayed at the top right of the tree tab.
-    - name: The version's name, displayed alongside the number in the info tab.
+- VERSION 用于描述 mod 的版本，包含：
+    - num: 当前版本号，在树的右上角显示。
+    - name: 版本名，在版本号周围显示。
 
-- changelog is the HTML displayed in the changelog tab. If this gets particularly long, it might be good to put in a separate file (be sure to add the file to index.html)
+- changelog 是一段 HTML 文本，用于展示更新记录。
 
-- doNotCallTheseFunctionsEveryTick is very important, if you are adding non-standard functions. TMT calls every function anywhere in "layers" every tick to store the result, unless specifically told not to. Functions that have are used to do an action need to be identified. "Official" functions (those in the documentation) are all fine, but if you make any new ones, add their names to this array.
+- doNotCallTheseFunctionsEveryTick 在你增加一个标准之外的功能时非常重要。TMT 会在每个 Tick 调用 "layers" 中的所有函数来储存结果，除非你标记了它不应该这样做。标准内的功能都是完好的，没有必要特殊设置，但是标准外的功能需要在这里设置一下。
 
 ```js
-// (The ones here are examples, all official functions are already taken care of)
+// (这只是个例子，标准内的功能已经被处理好了)
 var doNotCallTheseFunctionsEveryTick = ["doReset", "buy", "onPurchase", "blowUpEverything"]
 ```
 
-- getStartPoints(): A function to determine the amount of points the player starts with after a reset. (returns a Decimal value)
+- getStartPoints(): 在玩家重置后拥有多少点数，应当是一个 Decimal。
 
-- canGenPoints(): A function returning a boolean for if points should be generated. Use this if you want an upgrade to unlock generating points. 
+- canGenPoints(): 返回 Boolean，用来标记点数是否应当自动产生。
 
-- getPointGen(): A function that calculates your points per second. Anything that affects your point gain should go into the calculation here.
+- getPointGen(): 计算每秒获得的点数，影响这个数值的升级应该在这里修改结果。
 
-- addedPlayerData(): A function that returns any non-layer-related data that you want to be added to the save data and "player" object.
+- addedPlayerData(): 返回所有非 layer 数据，用于保存你想要的这样的数据。
 
 ```js
 function addedPlayerData() { return {
@@ -50,14 +50,14 @@ function addedPlayerData() { return {
 }}
 ```
 
-- displayThings: An array of functions used to display extra things at the top of the tree tab. Each function returns a string, which is a line to display (with basic HTML support). If a function returns nothing, nothing is displayed (and it doesn't take up a line).
+- displayThings: 一个函数数组，每个函数返回一个支持 HTML 的字符串，每个非空字符串会在树页面的顶部单独成为一行
 
-- isEndgame(): A function to determine if the player has reached the end of the game, at which point the "you win!" screen appears.
+- isEndgame(): 用于检测玩家是否通关。
 
-Less important things beyond this point!
+不那么重要的东西
 
-- backgroundStyle: A CSS object containing the styling for the background of the full game. Can be a function!
+- backgroundStyle: 一个 CSS 对象，指明游戏的背景格式。
 
-- maxTickLength(): Returns the maximum tick length, in milliseconds. Only really useful if you have something that reduces over time, which long ticks mess up (usually a challenge).
+- maxTickLength(): 一个 Tick 最多需要多长时间。
 
-- fixOldSave(): Can be used to modify a save file when loading into a new version of the game. Use this to undo inflation, never forcibly hard reset your players.
+- fixOldSave(): 用来将旧存档转移到新存档。

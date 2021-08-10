@@ -1,6 +1,6 @@
-# Milestones
+# 里程碑
 
-Milestones are awarded to the player when they meet a certain goal, and give some benefit. Milestones should be formatted like this:
+当玩家达成一定目标时，可以用里程碑进行奖励，里程碑也可以附带额外的效果，里程碑应该如此编写：
 
 ```js
 milestones: {
@@ -13,30 +13,30 @@ milestones: {
 }
 ```
 
-You can use `hasMilestone(layer, id)` to determine if the player has a given milestone
+你可以使用 `hasMilestone(layer, id)` 来获取玩家是否完成了指定的里程碑
 
-Milestone features:
+里程碑特性：
 
-- requirementDescription: A string describing the requirement for unlocking this milestone. Suggestion: Use a "total". It can also be a function that returns updating text. Can use basic HTML.
+- requirementDescription: 用于描述此里程碑解锁条件的文本，建议使用 "total"。可以使用函数来实现动态文本，也可以使用 HTML。
 
-- effectDescription: A string describing the reward for having the milestone. *You will have to implement the reward elsewhere.* It can also be a function that returns updating text. Can use basic HTML.
+- effectDescription: 一个描述该里程碑的效果的文本，*你需要在其他地方实现这个奖励效果*。可以使用函数与 HTML。
 
-- done(): A function returning a boolean to determine if the milestone should be awarded.
+- done(): 返回一个 Boolean，表示里程碑是否完成。
 
-- onComplete() - **optional**. this function will be called when the milestone is completed.
+- onComplete() - **可选**。在里程碑完成后调用此函数。
 
-- toggles: **optional**. Creates toggle buttons that appear on the milestone when it is unlocked. The toggles can toggle a given boolean value in a layer. It is defined as an array of paired items, one pair per toggle. The first is the internal name of the layer the value being toggled is stored in, and the second is the internal name of the variable to toggle. (e.g. [["b", "auto"], ["g", "auto"])
+- toggles: **可选**。开关，可以通过这个设置变量，需要提供一个数组，每个元素是一个二元数组，第一元是变量所在的 layer，第二元是变量的内部名称，例如 [["b", "auto"], ["g", "auto"]]
 
-   **Tip:** Toggles are not de-set if the milestone becomes locked! In this case, you should also check if the player has the milestone.
+   **提示:** 如果里程碑被锁定，不会重设之前设置过的变量，因此你需要再次对其进行检测。
 
-- style: **optional**. Applies CSS to this milestone, in the form of an object where the keys are CSS attributes, and the values are the values for those attributes (both as strings).
+- style: **可选**。以对象的格式，对里程碑应用 css。
 
-- unlocked(): **optional**. A function returning a boolean to determine if the milestone should be shown. If absent, it is always shown.
+- unlocked(): **可选**。返回一个 Boolean，表示里程碑是否显示，默认是显示。
 
-- tooltip: **optional**. Adds a tooltip to this milestone, appears when it is hovered over. Can use basic HTML. Default is no tooltip. If this returns an empty value, that also disables the tooltip.
+- tooltip: **可选**。为里程碑添加一个鼠标悬浮可见的 tooltip，可以使用 HTML。默认为无。
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar.
+- layer: **自动**。与当前 layer 的名字保持一致。
 
-- id: **assigned automagically**. It's the "key" which the milestone was stored under, for convenient access. The milestone in the example's id is 0.
+- id: **自动**。与该里程碑的 id 保持一致，例如例子中是 "0"。
 
-Disable milestone popups by adding `milestonePopups: false` to the layer.
+在 layer 中 `milestonePopups: false` 可以阻止里程碑的弹出式提示。

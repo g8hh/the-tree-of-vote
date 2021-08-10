@@ -1,10 +1,10 @@
-# Infoboxes
+# 消息盒
 
-Infoboxes are good for displaying "lore", or story elements, as well as for explaining complicated things.
+消息盒有助于显示所谓的 "lore" 或者讲碎片式的故事，在解释复杂的事物上也有所帮助。
 
-In the default tab layout, the first infobox will be displayed at the very top of the tab.
+在默认的布局下，第一个消息盒会显示在标签页的最上端。
 
-Infoboxes are defined like other Big Features:
+消息盒像其他**大**特性一样定义：
 
 ```js
 infoboxes: {
@@ -17,16 +17,16 @@ infoboxes: {
 }
 ```
 
-Features:
+特性:
 
-- title: The text displayed above the main box. Can be a function to be dynamic, and can use basic HTML.
+- title: 在盒子上方显示的标题，可以使用函数来达到动态文本的效果。可以使用 HTML。
 
-- body: The text displayed inside the box. Can be a function to be dynamic, and can use basic HTML.
+- body: 在盒子中显示的内容，其余与 title 相同。
 
-- style, titleStyle, bodyStyle: **optional**. Apply CSS to the infobox, or to the title button or body of the infobox, in the form of an object where the keys are CSS attributes, and the values are the values for those attributes (both as strings).
+- style, titleStyle, bodyStyle: **可选**。用对象的格式控制 css。
 
-- unlocked(): **optional**. A function returning a bool to determine if the infobox is visible or not. Default is unlocked.
+- unlocked(): **可选**。返回一个 Boolean，表示这个消息盒是否可见。
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar
+- layer: **自动**。与这一 layer 的名字相同，因此你可以用类似于 `player[this.layer].points` 一样的代码。
 
-- id: **assigned automagically**. It's the "key" which the bar was stored under, for convenient access. The infobox in the example's id is "lore".
+- id: **自动**。与这个消息盒的 id 相同，例如这里是 "lore"。

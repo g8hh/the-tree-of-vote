@@ -1,14 +1,14 @@
-# Upgrades
+# 升级
 
-Useful functions for dealing with Upgrades and implementing their effects:
+为了方便开发者，这里有几个函数：
 
-- hasUpgrade(layer, id): determine if the player has the upgrade
-- upgradeEffect(layer, id): Returns the current effects of the upgrade, if any
-- buyUpgrade(layer, id): Buys an upgrade directly (if affordable)
+- hasUpgrade(layer, id): 返回玩家是否拥有指定的升级
+- upgradeEffect(layer, id): 返回指定升级当前的 effect
+- buyUpgrade(layer, id): 如果买得起，购买指定升级
 
-Hint: Basic point gain is calculated in [mod.js](/js/mod.js)'s "getPointGen" function.
+提示: 基础的点数获取在 [mod.js](/js/mod.js) 的 "getPointGen" 中定义。
 
-Upgrades are stored in the following format:
+升级按照以下格式编写:
 
 ```js
 upgrades: {
@@ -21,50 +21,49 @@ upgrades: {
 }
 ```
 
-Usually, upgrades should have an id where the first digit is the row and the second digit is the column.
+通常来讲，升级应该有一个 id，这个 id 的第一个数字指明了它所在的行，第二个数字指明了它所在的列。
 
-Individual upgrades can have these features:
+每个升级可以有这些特性:
 
-- title: **optional**. Displayed at the top in a larger font. It can also be a function that returns updating text. Can use basic HTML.
+- title: **可选**。在顶部以一个较大的字体显示，可以用函数来实现动态文本的效果，可以使用 HTML。
 
-- description: A description of the upgrade's effect. *You will also have to implement the effect where it is applied.* It can also be a function that returns updating text. Can use basic HTML.
+- description: 对升级效果的描述， *如果你使用了 effect，在这里你也同样需要把 effect 加进来*。 同样可以使用函数与 HTML。
 
-- effect(): **optional**. A function that calculates and returns the current values of any bonuses from the upgrade. Can return a value or an object containing multiple values.
+- effect(): **可选**。一个计算并返回来自升级的增益效果的函数，结果可以是一个数，也可以是包含多个数的对象。
 
-- effectDisplay(): **optional**. A function that returns a display of the current effects of the upgrade with formatting. Default displays nothing. Can use basic HTML.
+- effectDisplay(): **可选**。将 effect 转化为文本的函数，默认为空字符串，可以使用 HTML。
 
-- fullDisplay(): **OVERRIDE**. Overrides the other displays and descriptions, and lets you set the full text for the upgrade. Can use basic HTML.
+- fullDisplay(): **覆写**。覆写名字与描述，你可以完全自定义它的文本。可以使用 HTML。
 
-- cost: **sort of optional** A Decimal for the cost of the upgrade. By default, upgrades cost the main prestige currency for the layer.
+- cost: **一定程度上可选**。升级需要的货币数量，默认情况下货币使用当前 layer 的主要货币。
 
-- unlocked(): **optional**. A function returning a bool to determine if the upgrade is visible or not. Default is unlocked.
+- unlocked(): **可选**。返回一个决定当前升级是否展示出来的 Boolean，默认展示。
 
-- onPurchase(): **optional**. This function will be called when the upgrade is purchased. Good for upgrades like "makes this layer act like it was unlocked first".
+- onPurchase(): **可选**。当这个升级被支付时调用。
 
-- style: **optional**. Applies CSS to this upgrade, in the form of an object where the keys are CSS attributes, and the values are the values for those attributes (both as strings).
+- style: **可选**。用一个对象来描述这个升级的 css。
 
-- tooltip: **optional**. Adds a tooltip to this upgrade, appears when it is hovered over. Can use basic HTML. Default is no tooltip. If this returns an empty value, that also disables the tooltip.
+- tooltip: **可选**。给升级添加一个 tooltip，当鼠标悬浮在升级上时显示。可以使用 HTML。
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar.
+- layer: **自动**。与这一 layer 的名字相同，因此你可以用类似于 `player[this.layer].points` 一样的代码。
 
-- id: **assigned automagically**. It's the "key" which the upgrade was stored under, for convenient access. The upgrade in the example's id is 11.
+- id: **自动**。与这一升级的 id 相同。
 
-By default, upgrades use the main prestige currency for the layer. You can include these to change them (but it needs to be a Decimal):
+默认情况下，升级会使用当前 layer 的主要货币，你也可以通过下面的方式修改。
 
-- currencyDisplayName: **optional**. The name to display for the currency for the upgrade.
+- currencyDisplayName: **可选**。这个升级需要的货币的显示名
 
-- currencyInternalName: **optional**. The internal name for that currency.
+- currencyInternalName: **可选**。升级所需货币的内部名。
 
-- currencyLayer: **optional**. The internal name of the layer that currency is stored in. If it's not in a layer (like Points), omit. If it's not stored directly in a layer, instead use the next feature.
+- currencyLayer: **可选**。所需货币所在的 layer 的内部名。如果它不属于某个 layer，省略。如果不是直接存储在 layer 中，使用下一个特性。
 
-- currencyLocation: **optional**. If your currency is stored in something inside a layer (e.g. a buyable's amount), you can access it this way. This is a function returning the object in "player" that contains the value (like `player[this.layer].buyables`)
+- currencyLocation: **可选**。如果你需要的货币是一个 layer 内的数据，比如一个可重复购买项，你可以用这个方式访问。这个函数需要返回在 "player" 中包含这个值的对象。例如 `player[this.layer].buyables`。
 
-If you want to do something more complicated like upgrades that cost two currencies, or have extra requirements, you can override the purchase system with these. (and you need to use fullDisplay if you don't use "cost")
+如果你需要更复杂的功能，比如同时消耗两种货币，你需要重载支付系统。此外，如果你不使用 cost，你需要覆写 fullDisplay()。
 
-- canAfford(): **OVERRIDE**, a function determining if you are able to buy the upgrade. (If you also have a cost, it will check both the cost and this function)
+- canAfford(): **覆写**。用于计算是否可以购买此升级。如果你使用了 cost，那么最终结果是此函数与 cost 检查加在一起。
 
-- pay(): **OVERRIDE**, a function that reduces your currencies when you buy the upgrade
+- pay(): **覆写**，当购买此升级时，调用此函数来消耗货币。
 
 
-
-- branches: **optional**, This is primarially useful for upgrade trees. An array of upgrade ids. A line will appear from this upgrade to all of the upgrades in the list. Alternatively, an entry in the array can be a 2-element array consisting of the upgrade id and a color value. The color value can either be a string with a hex color code, or a number from 1-3 (theme-affected colors). A third element in the array optionally specifies line width.
+- branches: **可选**。这个功能主要用于升级类树。需要一个升级 id 数组。会有直线从这个升级连向数组中的升级。或者，数组中的元素也可以是一个二元数组，第二个元素可以是一个指明了 HEX 颜色代码的字符串，或者是一个 1-3 之间的数字（取决于主题颜色）。你也可以用三元数组，此时第三元会作为直线的宽度。

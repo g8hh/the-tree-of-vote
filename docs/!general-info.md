@@ -1,59 +1,57 @@
 # The-Modding-Tree
 
-Making a game in The Modding Tree mostly involves defining parameters or functions on objects. If you aren't following the [getting started guide](tutorials/getting-started.md), you should start by [setting up your basic mod info](main-mod-info.md) in [mod.js](/js/mod.js). It's important to set a mod id to ensure saving works properly.
+基本上来讲，使用 TMT 制作游戏只是修改几个参数或者函数的问题。如果你没有参考 [getting started guide](tutorials/getting-started.md)，那么你应该先在 [mod.js](/js/mod.js) 中 [设置 mod 的基本信息](main-mod-info.md)。为了保证正常存储，你需要合理的确定一个 id。
 
-Beyond that, the main way to add content is through creating layers. You can add new layers by calling `addLayer(layername, layerdata)`. There is an example of a basic layer in [layers.js](/js/layers.js). It is just an example and can be freely deleted. You can also use it as a reference or a base for your own layers. 
+除那以外，游戏内容的核心是 layer。你可以通过调用 `addLayer(layername, layerdata)` 来创建一个新的 layer。在 [layers.js](/js/layers.js) 中有一个基本的 layer 的示例，你可以随意修改、删除这个示例。
 
-You can test your mod by opening the [index.html](/index.html) file in your browser.
+在浏览器中打开 [index.html](/index.html) 可以进行调试。
 
-Most of the time, you won't need to dive deep into the code to create things, but you still can if you really want to, for example to add new Vue components in [components.js](/js/components.js).
+大部分情况下，你的需求都不需要你对代码进行深入研究，不过这也并非禁止，例如你可以在 [components.js](/js/components.js) 中增加 vue 组件。
 
-The Modding Tree uses [break\_eternity.js](https://github.com/Patashu/break_eternity.js) to store large values. This means that many numbers are `Decimal` objects, and must be treated differently. For example, you have to use `new Decimal(x)` to create a `Decimal` value instead of a plain number (x can be a number or a string for larger values). You perform operations on them by calling functions. e.g, instead of `x = x + y`, use `x = x.add(y)`. Keep in mind this also applies to comparison operators, which should be replaced with calling the `.gt`, `.gte`, `.lt`, `.lte`, `.eq`, and `.neq` functions. See the [break\_eternity.js](https://github.com/Patashu/break_eternity.js) docs for more details on working with `Decimal` values.
+TMT 使用 [break\_eternity.js](https://github.com/Patashu/break_eternity.js) 来存储大数，所以很多数都是 `Decimal` 对象，必须被特殊对待。例如，你可以使用 `new Decimal(x)` 来创建一个 `Decimal` 值，而不是一个平凡的数 (x 可以是一个数，也可以是一个字符串)。对它们的操作需要调用函数，例如，你不能写 `x = x + y` 而应该写 `x = x.add(y)`。此外，大小比较也需要使用 `.gt`, `.gte`, `.lt`, `.lte`, `.eq` 以及 `.neq` 函数。在 [break\_eternity.js](https://github.com/Patashu/break_eternity.js) 文档中可以看到该如何处理 `Decimal`。
 
-Almost all values can be either a constant value, or a dynamic value. Dynamic values are defined by putting a function that returns what the value should be at any given time.
+几乎所有值都既可以是定值也可以是动态的值。动态的值需要提供一个函数来给出每个具体时刻的值。
 
-All display text can use basic HTML elements (But you can't use most Vue features there).
+所有的文本都可以使用 HTML，但你不能在那些地方使用 vue。
 
-While reading this documentation, the following key will be used when describing features:
+在阅读这个文档的时候，这些标签会用来描述特性：
 
-- No label: This is required and the game may crash if it isn't included.
-- **sometimes required**: This is may be required, depending on other things in the layer.
-- **optional**: You can leave this out if you don't intend to use that feature for the layer.
-- **assigned automagically**: This value will be set automatically and override any value you set.
-- **deprecated**: This feature is not recommended to be used, because newer features are able to achieve the same thing in a better, easier way.
+- 无标签: 这个特性是必须的，如果没有的话游戏会有可能崩溃。
+- **重要**: 这个特性也许是必须的，取决于 layer 的其他部分。
+- **可选**: 这个特性可有可无，如果你不需要，可以删掉。
+- **自动**: 这个值会被自动设置，并且你设置的值也会被覆盖。
+- **过时**: 这个特性已经过时了，有更好更简单的方法来完成同样的事情，所以不建议使用。
 
-## Table of Contents
+## 目录
 
 
 
-### General
+### 全局
 
-- [Getting Started](tutorials/getting-started.md): A guide to getting your own copy of the code set up with Github Desktop.
-- [Making a Mod](tutorials/making-a-mod.md): A guide to using TMT to make a basic mod.
-- [Main mod info](main-mod-info.md): How to set up general things for your mod in [mod.js](/js/mod.js).
-- [Basic layer breakdown](basic-layer-breakdown.md): Breaking down the components of a layer with minimal features.
-- [Layer features](layer-features.md): Explanations of all of the different properties that you can give a layer.
-- [Custom Tab Layouts](custom-tab-layouts.md): An optional way to give your tabs a different layout. You can even create entirely new components to use.
-- [Custom Game Layouts](trees-and-tree-customization.md): You can get rid of the tree tab, add buttons and other things to the tree,
-    or even customize the tab's layout like a layer tab.
-- [Updating TMT](tutorials/updating-tmt.md): Using Github Desktop to update your mod's version of TMT.
-- [Other Things](other.md): Other neat features that TMT has that don't merit their own page.
+- [Getting Started](tutorials/getting-started.md): 指引你使用 Github Desktop 建立一个 TMT 项目。
+- [Making a Mod](tutorials/making-a-mod.md): 指引你使用 TMT 制作一个非常基础的 mod。
+- [Main mod info](main-mod-info.md): 指引你在 [mod.js](/js/mod.js) 中设置游戏信息。
+- [Basic layer breakdown](basic-layer-breakdown.md): 将一个 layer 拆分成细小的组件。
+- [Layer features](layer-features.md): 解释你可以给 layer 设置的所有参数。
+- [Custom Tab Layouts](custom-tab-layouts.md): 一个可选的方式，来给你的标签页提供新的布局。
+- [Custom Game Layouts](trees-and-tree-customization.md): 也许你厌倦了树形结构？
+- [Updating TMT](tutorials/updating-tmt.md): 使用 Github Desktop 来更新你的 TMT 项目。
+- [Other Things](other.md): 一些不值得其他页面包含的东西。
 
-### Common components
+### 平凡组件
 
-- [Upgrades](upgrades.md): How to create upgrades for a layer.
-- [Milestones](milestones.md): How to create milestones for a layer.
-- [Buyables](buyables.md): Create rebuyable upgrades for your layer (with the option to make them respec-able). Can be used to make Enhancers or Space Buildings, for example.
-- [Clickables](clickables.md): A more generalized variant of buyables, for any kind of thing that is sometimes clickable. Between these and Buyables, you can do just about anything.
-- [Achievements](achievements.md): How to create achievements for a layer (or for the whole game).
+- [Upgrades](upgrades.md): 介绍如何给 layer 创建一个升级。
+- [Milestones](milestones.md): 介绍如何给 layer 创建一个里程碑。
+- [Buyables](buyables.md): 介绍如何给 layer 制作 buyable。
+- [Clickables](clickables.md): 和 Buyables 类似，不过只要可以点击就属于这个范围。
+- [Achievements](achievements.md): 给 layer 或者整个游戏创建成就。
 
-### Other components and features
+### 其他组件与特性
 
-- [Challenges](challenges.md): How to create challenges for a layer.
-- [Bars](bars.md): Display some information as a progress bar, gauge, or similar. They are highly customizable, and can be horizontal and vertical as well.
-- [Subtabs and Microtabs](subtabs-and-microtabs.md): Create subtabs for your tabs, as well as "microtab" components that you can put inside the tabs.
-                        You can even use them to embed a layer inside another layer!
-- [Grids](grids.md): Create a group buttons that behave the same, but have their own data. Good for map tiles, an inventory grid, and more!
-- [Infoboxes](infoboxes.md): Boxes containing text that can be shown or hidden.
-- [Trees](trees-and-tree-customization.md): Make your own trees. You can make non-layer button nodes too!
-- [Particle system](particles.md): Can be used to create particles for visual effects, but also interactable things like golden cookies or collectables.
+- [Challenges](challenges.md): 如何为 layer 制作挑战。
+- [Bars](bars.md): 以相当自由的方式制作进度条、仪表盘之类的东西。
+- [Subtabs and Microtabs](subtabs-and-microtabs.md): 为标签页制作标签页，你可以用这个方式来制作子 layer。
+- [Grids](grids.md): 将特性相近的按钮分组，让界面更好看。
+- [Infoboxes](infoboxes.md): 信息盒子。
+- [Trees](trees-and-tree-customization.md): 制作你自己的树，修改树的形态或是别的什么的。
+- [Particle system](particles.md): 可以用来做特效，也可以用来做可以点击的气泡之类的东西。

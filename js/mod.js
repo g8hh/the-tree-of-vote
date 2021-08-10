@@ -13,14 +13,18 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.28",
+	num: "0.29",
 	name: "democracy was never wrong :troll_hdr:",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v0.29</h3><br>
+		- (UNVOTE) Fixed upvoid upgrade's effect.<br>
+		- (UNVOTE) Try to banlance everything again.<br>
+		- Added a upgrade that multiplies point gain by light mode.<br>
 	<br><h3>v0.28</h3><br>
 		- Added a layer called "community" with members as currency that boost rigged polls gain.<br>
-		- (UNVOTE) Fix challenge point caulation.<br>
+		- (UNVOTE) Fixed challenge point caulation.<br>
 		- (UNVOTE) Try to banlance everything.<br>
 		- Added a upgrade that raise points gain by 1.1, called "^".<br>
 	<br><h3>v0.26</h3><br>
@@ -101,6 +105,7 @@ function getPointGen() {
 	if (hasUpgrade('po',21)) gain = gain.pow(1.1)
 	if (hasUpgrade('b',11)) gain = gain.times(5)
 	if (getBuyableAmount('b',12).gte(new Decimal(1)))gain = gain.times(buyableEffect('b',12))
+	if (hasUpgrade('co',11)) gain = gain.times(2)
 
 	return gain
 }

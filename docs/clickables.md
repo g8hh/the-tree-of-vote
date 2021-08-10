@@ -1,18 +1,18 @@
 # Clickables
 
-Clickables are any kind of thing that you can click for an effect. They're a more generalized version of Buyables.
+Clickable 是指的一类可以点击的项目，类似于 buyable，但范围更广。
 
-DO NOT USE THESE TO MAKE THINGS THAT YOU CLICK REPEATEDLY FOR A BONUS BECAUSE THOSE ARE AWFUL.
+作者说不要拿 clickable 做那种点一下就会有 buff 的东西，因为这非常恶心（？
 
-There are several differences between the two. One is that a buyable's saved data is its amount as a `Decimal`, while Clickables store a "state" which can be a number or string, but not `Decimal`, array, or object). Buyables have a number of extra features which you can see on their page. Clickables also have a smaller default size.
+在 clickable 和 buyable 之间有一些区别。一方面，buyable 的数据只以 Decimal 存储其数量，但 clickable 会存储一个可以为数字或字符串的 "state"。buyable 有一些额外的特性，而 clickable 的尺寸相对较小。
 
-Useful functions for dealing with clickables and implementing their effects:
+开发 clickable 时有用的函数：
 
-- getClickableState(layer, id): get the state of the clickable the player has
-- setClickableState(layer, id, state): set the state of the clickable the player has
-- clickableEffect(layer, id): Returns the current effects of the clickable, if any.
+- getClickableState(layer, id): 获取指定 clickable 当前的 state
+- setClickableState(layer, id, state): 设置指定 clickable 的 state
+- clickableEffect(layer, id): 获取指定 clickable 的 effect
 
-Clickables should be formatted like this:
+一个 clickable 长这样：
 
 ```js
 clickables: {
@@ -24,40 +24,40 @@ clickables: {
 }
 ```
 
-Features:
+特性:
 
-- title: **optional**. displayed at the top in a larger font. It can also be a function that returns updating text.
+- title: **可选**。在 clickable 上以较大的字体展示。可以使用函数达到动态文本的效果。
                     
-- effect(): **optional**. A function that calculates and returns the current values of bonuses of this clickable. Can return a value or an object containing multiple values.
+- effect(): **可选**。计算并返回由该 clickable 提供的增益效果的函数。可以返回一个数，也可以返回一个对象。
 
-- display(): A function returning everything that should be displayed on the clickable after the title, likely changing based on its state. Can use basic HTML.
+- display(): 返回在 title 之后应当显示的内容，可以使用 HTML。
 
-- unlocked(): **optional**. A function returning a bool to determine if the clickable is visible or not. Default is unlocked.
+- unlocked(): **可选**。返回此 clickable 是否可见，默认可见。
 
-- canClick(): A function returning a bool to determine if you can click the clickable.
+- canClick(): 返回此 clickable 是否可以点击。
 
-- onClick(): A function that implements clicking the clickable. 
+- onClick(): 当 clickable 被点击时调用。
 
-- onHold(): **optional** A function that is called 20x/sec when the button is held for at least 0.25 seconds.
+- onHold(): **可选**。当 clickable 被按住 0.25s 后，此函数以 20次/s 的速度被调用。
 
-- style: **optional**. Applies CSS to this clickable, in the form of an object where the keys are CSS attributes, and the values are the values for those attributes (both as strings).
+- style: **可选**。以对象的格式，对 clickable 应用 css。
 
-- marked: **optional** Adds a mark to the corner of the clickable. If it's "true" it will be a star, but it can also be an image URL.
+- marked: **可选**。如果为 true，在 clickable 的角落里打一个星，也可以用 url 图片。
 
-- tooltip: **optional**. Adds a tooltip to this clickable, appears when it is hovered over. Can use basic HTML. Default is no tooltip. If this returns an empty value, that also disables the tooltip.
+- tooltip: **可选**。给 clickable 一个鼠标悬浮时显示的 tooltip，可以使用 HTML，默认是空，如果是空则不显示 tooltip。
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar.
+- layer: **自动**。与所在 layer 的名字保持一致。
 
-- id: **assigned automagically**. It's the "key" which the clickable was stored under, for convenient access. The clickable in the example's id is 11.
+- id: **自动**。与此 clickable 的 id 保持一致，此例子中为 "11"。
 
-You can also use these features on the clickables object to add a button above all the clickables, for implementing a respec button or similar.
+下面的几个特性可以让你在 clickable 下面做一个按钮，可以用来实现转生之类的东西。
 
-- masterButtonPress(): **optional**. If present, an additional button will appear above the clickables. Pressing it will call this function.
+- masterButtonPress(): **可选**。只要此函数被实现了，则会出现所述的按钮，点击按钮会调用此函数。
 
-- masterButtonText: **optional**. Text to display on the Master Button.
+- masterButtonText: **可选**。显示在按钮上的字。
 
-- showMasterButton(): **optional**. A function determining whether or not to show the button, if masterButtonPress is defined. Defaults to true if absent.
+- showMasterButton(): **可选**。是否显示按钮，在 masterButtonPress() 函数被实现的情况下，默认为 true。
 
 
 
-- branches: **optional**, This is primarially useful for clickable trees. An array of clickable ids. A line will appear from this clickable to all of the clickables in the list. Alternatively, an entry in the array can be a 2-element array consisting of the clickable id and a color value. The color value can either be a string with a hex color code, or a number from 1-3 (theme-affected colors). A third element in the array optionally specifies line width.
+- branches: **可选**。可以制作 clickable 树，具体参考升级一节的 branches 文档。

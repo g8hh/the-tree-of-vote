@@ -30,5 +30,17 @@ addLayer("co", {
     effect(){return player[this.layer].points.add(1).pow(1.5)},
     effectDescription:function(){
         return "Which is boost yout Rigged Polls gain by "+format(this.effect())
-    }
+    },
+    upgrades:{
+        11: {
+            name: "ant warmer",
+            description: "Multiplies point gain by light mode.",
+            cost: new Decimal(0),
+            unlocked(){
+                if (player[this.layer].points.gte(1)||(hasUpgrade(this.layer, 11)))return true
+                else return false
+            },
+            tooltip:"Current light mode:2"
+        },
+    },
 })

@@ -1,21 +1,21 @@
-# Updating The Modding Tree
+# 更新 TMT
 
-This tutorial assumes that you have used [the Getting Started Tutorial](getting-started.md), and are using Github Desktop and VSCode for your mod.
+假设你已经理解了 [the Getting Started Tutorial](getting-started.md)，并且使用 Github Desktop 和 VSCode。
 
-Here's what you have to do when there's a TMT update:
+当你想要更新 TMT 时，你需要:
 
-1. Look at the changelog. It will warn you if the update will break anything or require any changes. Decide if you want to try to update.
+1. 查看 changelog。如果这次更新需要你对代码做出修改，它会警告你的，你可以决定是否要更新。
 
-2. Open Github Desktop, and at the top middle, click "fetch origin". This will make Github Desktop get information about the update. 
+2. 打开 Github Desktop，在中上点击 "fetch origin"。这会使 Github Desktop 获取到这次更新的信息
 
-3. Click where it says "current branch: master" at the top middle, and at the bottom of the thing that appears, click "choose a branch to merge into master".
+3. 点击中上部的 "current branch: master" 在提供的选项中，选择 "choose a branch to merge into master"。
 
-4. Select upstream/master. It will likely say there are conflicts, but you have tools to resolve them. Click "Merge upstream/master into master".
+4. 选择 upstream/master。不出所料的话，它将提示你存在冲突，但是我们有工具解决问题。点击 "Merge upstream/master into master"。
 
-5. A conflict happens when the things you're trying to merge have both made changes in the same place. Click "open in Visual Studio Code" next to the first file. 
+5. 如果你的代码和想要更新的代码中在同一个地方出现了不同的修改，就会产生冲突。点击 "open in Visual Studio Code" 去到第一个文件。 
 
-6. Scroll down through the file, and look for the parts highlighted in red and green. One of these is your code, and the other is some code that will be modified by the update. Do your best to try to edit things to keep the updated changes, but keep your content.
+6. 浏览整个文件，冲突的代码会以红色与绿色高亮标记出来，尽你所能，在不影响你自己代码功能的情况下解决冲突。
 
-7. Continue to do this for all remaining changes.
+7. 重复这个过程，直到解决了所有冲突。
 
-8. Do any other changes required by the update, run the game, fix issues, etc.
+8. 做收尾工作。
