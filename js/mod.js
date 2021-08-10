@@ -143,4 +143,6 @@ function maxTickLength() {
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
 	if (oldVersion<0.17) player.f.points=new Decimal(0)
+	if (oldVersion<0.30) {player.points=new Decimal(0);player.po.points.min(1e7)}
+
 }
