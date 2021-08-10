@@ -40,7 +40,7 @@ addLayer("co", {
                 if (player[this.layer].points.gte(1)||(hasUpgrade(this.layer, 11)))return true
                 else return false
             },
-            tooltip:"Current light mode:2"
+            tooltip:"Current light mode: 2"
         },
     },
 })
