@@ -66,7 +66,7 @@ addLayer("c", {
             name: "upvoid",
             challengeDescription: "Your buyable effect is square rooted.",
             goalDescription:"Get 1e18 points.",
-            rewardDescription:"Your buyable effect is x2.",
+            rewardDescription:"Your buyable effect is x2.<br>(Except first one.)",
             canComplete: function() {return player.points.gte(0)},
             
         },
