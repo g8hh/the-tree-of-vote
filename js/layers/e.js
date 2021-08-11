@@ -37,6 +37,26 @@ addLayer("e", {
         "buyables",
         "upgrades",
         ],
+    buyables: {
+        11: {
+            cost(x){return new Decimal(0)},
+            title:'Elund',
+            display() {
+                words = "Click me to change color to purple.<br>Currently: Clicked "
+                words = words+format(getBuyableAmount(this.layer,this.id))+" times."
+                return words
+            },
+            unlocked(){return true},
+            style: {
+                'height': '150px',
+                'width': '150px'
+            },
+            canAfford(){return true},
+            buy(){
+                setBuyableAmount(this.layer,this.id,getBuyableAmount(this.layer,this.id).add(1))
+            },
+        },
+    },
     upgrades:{
 
     }
