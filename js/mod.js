@@ -20,6 +20,7 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.32</h3><br>
 		- Added a clickable that counts the amount of times it is clicked that becomes purple when clicked an odd number of times.<br>
+		- Added another spell where the base of the second buyable is increased.<br>
 	<br><h3>v0.31</h3><br>
 		- (UNVOTE) Fixed inflation-HOLY GOD I JUST FIND THAT.<br>
 		- (UNVOTE) Try to banlance everything CUZ THAT INFLATION BUG.<br>
@@ -112,7 +113,7 @@ function getPointGen() {
 	if (hasUpgrade('po', 11))gain = gain.times(upgradeEffect('po', 11))
 	if (hasUpgrade('po',21)) gain = gain.mul(upgradeEffect('po', 21))
 	if (hasUpgrade('po',22)) gain = gain.pow(1.1)
-	if (getBuyableAmount('po',11).gte(new Decimal(0)))gain = gain.times(buyableEffect('po',11))// THIS IS X2
+	if (getBuyableAmount('po',11).gt(new Decimal(0)))gain = gain.times(buyableEffect('po',11))// THIS IS X2
 	if (hasUpgrade('b',11)) gain = gain.times(5)
 	if (getBuyableAmount('b',12).gte(new Decimal(1)))gain = gain.times(buyableEffect('b',12))
 	if (hasUpgrade('co',11)) gain = gain.times(2)

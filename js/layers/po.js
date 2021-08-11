@@ -48,7 +48,7 @@ addLayer("po", {
     },
     buyables: {
         11: {
-            cost(x){return new Decimal(1)},
+            cost(x){return new Decimal(100)},
             title:'Elund',
             display() {
                 words = "Doubles point gain for 10 seconds,<br>Cost:100 Rigged Polls.<br>Currently: "
@@ -70,6 +70,31 @@ addLayer("po", {
             effect(){
                 if (getBuyableAmount(this.layer,this.id).gt(0)) return new Decimal(2)
                 else return 1
+            },
+        },
+        12: {
+            cost(x){return new Decimal(10000)},
+            title:'upvoid',
+            display() {
+                words = "Add 0.5 to buyable 2 base for 10 seconds,<br>Cost:10000 Rigged Polls.<br>Currently: "
+                words = words+format(getBuyableAmount(this.layer,this.id))+"s."
+                return words
+            },
+            unlocked(){return true},
+            purchaseLimit:new Decimal(0.01),
+            style: {
+                'height': '150px',
+                'width': '150px'
+            },
+            canAfford(){if (getBuyableAmount(this.layer,this.id).lte(0) && player[this.layer].points.gte(10000))return true;
+                        else return false},
+            buy(){
+                player[this.layer].points=player[this.layer].points.sub(10000)
+                setBuyableAmount(this.layer,this.id,new Decimal(10))
+            },
+            effect(){
+                if (getBuyableAmount(this.layer,this.id).gt(0)) return new Decimal(0.5)
+                else return 0
             },
         },
     },

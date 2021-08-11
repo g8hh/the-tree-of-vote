@@ -34,6 +34,50 @@ addLayer("f", {
         "blank",
         "upgrades",
         ],
+    grid:{
+        rows: 9,
+        cols: 9,
+
+        getStartData(id) {
+            return "blank"
+        },
+
+        getCanClick(data, id) {
+            return true
+        },
+
+        getDisplay(data, id) {
+            return id == encodeGridId(5, 5) ? "⭐" : ""
+        },
+
+        getStyle(data, id) {
+            var color = "#FFFF99"
+
+            if (data == "shop") {
+                color = "#ffee00"
+            } else if (data == "forest") {
+                color = "#00aa33"
+            } else if (data == "path") {
+                color = "#cccccc"
+            }
+
+            return {
+                "background-color": color
+            }
+        },
+
+        getTooltip(data, id) {
+            if (typeof data == "undefined") return
+
+            if (data == "blank") {
+                return "Nothing"
+            } else {
+                return data[0].toUpperCase() + data.slice(1)
+            }
+        }
+    },
+
+
     upgrades:{
         11: {
             cost: new Decimal(5),
