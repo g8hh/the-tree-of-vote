@@ -16,7 +16,7 @@ addLayer("p", {
     gainMult() {
         let mult = new Decimal(1)
         if (hasUpgrade('p', 13)) mult = mult.times(upgradeEffect('p', 13))
-      if(hasUpgrade("po",31))mult=mult.mul(player.points.add(1).ln().add(1).log(2).add(1).pow(player.p.points.add(1).log10().add(1)).add(1).pow(0.9))
+      if(hasUpgrade("po",31))mult=mult.mul(player.points.add(1).ln().add(1).log(2).add(1).pow(player.p.points.add(1).log10().pow(0.9).add(1)).add(1))
       if(hasUpgrade("a",15))mult=mult.mul(player.e.points.add(1))
         return mult
     },

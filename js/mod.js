@@ -13,11 +13,13 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.40",
+	num: "0.40.1",
 	name: "democracy was never wrong :troll_hdr:",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+<br><h3>v0.40.1</h3><br>
+- Fixed NaN bug with the first addition upgrade
 <br><h3>v0.40</h3><br>
 - You found an easter egg
 - Added in a bunch of suggestions
@@ -123,7 +125,7 @@ function getPointGen() {
 	if (getBuyableAmount('b',12).gte(new Decimal(1)))gain = gain.times(buyableEffect('b',12))
 	if (hasUpgrade('co',11)) gain = gain.times(2)
 if(hasUpgrade("po",23))gain=gain.mul(15)
-  if(hasUpgrade("a",11))gain=gain.mul(player.points.add(1).log().add(1))
+  if(hasUpgrade("a",11))gain=gain.mul(player.points.add(1).log(10).add(1))
   if(inChallenge("c",22))gain=gain.add(1).log(2).pow(new Decimal(player.c.resetTime).add(2).log(2))
   if(hasChallenge("c",22))gain=gain.mul(player.co.points.max(1))
   if(hasMilestone("e",1))gain=gain.mul(player.e.points.div(1000).add(1))
