@@ -119,6 +119,31 @@ addLayer("b", {
 
             purchaseLimit:new Decimal(10)
         },
+      13:{
+            unlocked(){return player.co.unlocked},
+            
+            cost(x){return new Decimal(2).pow(x)},
+
+            title:"",
+
+            display(){words = `Raise the softcap power of inflation to the 0.9995.<br>
+                            Currently: ^`+format(buyableEffect(this.layer,this.id))+`.<br>
+                            Next: `
+                    return words + format(this.cost()) + " prestige points."},
+            
+            canAfford(){return player.po.points.gte(this.cost())},
+
+            effect(){
+                eff=new Decimal(0.9995).pow(getBuyableAmount(this.layer,this.id))
+                return eff
+            },
+
+            buy() {
+                player.po.points = player.po.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                player[this.layer].points=player[this.layer].points.add(1)
+            },
+        },
 
     },
     upgrades:{

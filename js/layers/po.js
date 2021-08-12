@@ -39,12 +39,27 @@ addLayer("po", {
 
 
     },
+  doReset(layer){
+if(layers[layer].row>this.row){
+let keep = []
+if(hasMilestone("co",1)){keep.push("milestones")}
+layerDataReset(this.layer,keep)
+}
+},
+  passiveGeneration(){
+    if(!hasUpgrade("co",12))return 0
+    return getResetGain("po").sqrt().pow(-1)},
     milestones:{
         1:{
             requirementDescription: "100 Rigged Polls",
             effectDescription: "Unlock an upgrade in prestige layer.",
             done() { return player[this.layer].points.gte(100) },
         },
+      2: {
+      requirementDescription: "1000 rigged polls",
+        effectDescription: "Keep prestige upgrades on reset",
+        done() { return player.po.points.gte(1000) }
+    }
     },
     buyables: {
         11: {
@@ -128,7 +143,7 @@ addLayer("po", {
             description: "Increases the exponent of the 3^3=7 upgrade based on rigged polls.",
             cost: new Decimal(10),
             effect(){
-                return softcap(player[this.layer].points.add(1).cbrt(),new Decimal(0.40958541694619255),0.15)
+                return softcap(player[this.layer].points.add(1).cbrt(),new Decimal(0.40958541694619255),new Decimal(0.15).pow(buyableEffect("b",13)).add(hasUpgrade("a",13)?player.co.points.sqrt().div(100):0))
             },
             effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
         },
@@ -147,6 +162,21 @@ addLayer("po", {
             title: "^",
             description: "Raise point gain by 1.1.",
             cost: new Decimal(1000),
+        },
+      23: {
+            title: "",
+            description: "Point gain *(average temperature of earth in degrees celsius)",
+            cost: new Decimal(1e6),
+        },
+      24: {
+            title: "",
+            description: "Square prestige gain",
+            cost: new Decimal(1e9),
+        },
+      31: {
+            title: "",
+            description: "multiply prestige point gain by ((log2(ln(points+1)+1)+1)^(log10(prestige points+1)+1)+1)^0.9",
+            cost: new Decimal(1e18),
         },
     }
 })

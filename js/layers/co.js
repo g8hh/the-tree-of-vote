@@ -42,5 +42,21 @@ addLayer("co", {
             },
             tooltip:"Current light mode: 2"
         },
+      12: {
+            name: "",
+            description: "Gain the square root of rigged polls on reset per second",
+            cost: new Decimal(1),
+            unlocked(){
+                if (player[this.layer].points.gte(1)||(hasUpgrade(this.layer, 11)))return true
+                else return false
+            },
+        },
     },
+  milestones:{
+    1:{
+      requirementDescription: "3 members",
+        effectDescription: "Keep rigged poll milestones on reset",
+        done() { return player.co.points.gte(3) }
+    }
+  }
 })

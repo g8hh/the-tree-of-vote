@@ -37,6 +37,15 @@ addLayer("e", {
         "buyables",
         "upgrades",
         ],
+  effectDescription(){
+    if(hasMilestone("e",1))return "multiplying point gain by "+format(player.e.points.div(1000).add(1))
+  },
+  milestones:{
+    1:{requirementDescription:"3 election polls",
+      rewardDescription:"Elections have a useful effect (very useful trust me)",
+       done(){return player.e.points.gte(3)}
+    }
+  },
     buyables: {
         11: {
             cost(x){return new Decimal(0)},
@@ -47,9 +56,16 @@ addLayer("e", {
                 return words
             },
             unlocked(){return true},
-            style: {
+            style() {
+              if(Number(getBuyableAmount(this.layer,this.id))%2==1)return{
+                
                 'height': '150px',
-                'width': '150px'
+                'width': '150px',
+                'background-color': '#8000ff'
+              }
+              return{
+                'height': '150px',
+                'width': '150px'}
             },
             canAfford(){return true},
             buy(){
@@ -58,6 +74,30 @@ addLayer("e", {
         },
     },
     upgrades:{
-
-    }
+11:{
+  title: "f",
+  description(){return "gain 4.9 fumos"},
+  cost: new Decimal(0),
+  onPurchase(){player.f.points=player.f.points.add(4.9)}
+}
+    },
+  grid: {
+    rows: 4, // If these are dynamic make sure to have a max value as well!
+    cols: 5,
+    getStartData(id) {
+        return 0
+    },
+    getUnlocked(id) { // Default
+        return true
+    },
+    getCanClick(data, id) {
+        return true
+    },
+    onClick(data, id) { 
+        player[this.layer].grid[id]++
+    },
+    getDisplay(data, id) {
+        return data 
+    },
+}
 })
