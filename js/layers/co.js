@@ -31,6 +31,7 @@ addLayer("co", {
     effectDescription:function(){
         return "Which is boost yout Rigged Polls gain by "+format(this.effect())
     },
+  canBuyMax(){return hasChallenge("ac",11)},
     upgrades:{
         11: {
             name: "ant warmer",
@@ -57,6 +58,11 @@ addLayer("co", {
       requirementDescription: "3 members",
         effectDescription: "Keep rigged poll milestones on reset",
         done() { return player.co.points.gte(3) }
+    },
+    2:{
+      requirementDescription: "12 members",
+        effectDescription: "Keep rigged poll upgrades on reset",
+        done() { return player.co.points.gte(12) }
     }
   }
 })

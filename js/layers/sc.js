@@ -17,6 +17,7 @@ addLayer("sc", {
     "blank",
         ["display-text",function(){
             words = ``
+            if(hasUpgrade("po",31))words+="<h3>rigged poll upgrade 31</h3><br>effect -> ln(effect+1)<br><br>"
             if(hasUpgrade('po',21)) words = words + '<h3>upvoid</h3><br>Start at 0x.<br>effect goes log10<br><br>'
             if(upgradeEffect('po',14).gte(0.41)) words = words + '<h3>ant warmer</h3><br>Start at +0.40958541694619255.<br>effect ^0.15<br><br>'
             return words}],
