@@ -131,7 +131,7 @@ addLayer("b", {
                             Next: `
                     return words + format(this.cost()) + " prestige points."},
             
-            canAfford(){return player.po.points.gte(this.cost())},
+            canAfford(){return player.p.points.gte(this.cost())},
 
             effect(){
                 eff=new Decimal(0.9995).pow(getBuyableAmount(this.layer,this.id))
@@ -139,7 +139,7 @@ addLayer("b", {
             },
 
             buy() {
-                player.po.points = player.po.points.sub(this.cost())
+                player.p.points = player.p.points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
                 player[this.layer].points=player[this.layer].points.add(1)
             },

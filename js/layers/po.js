@@ -143,7 +143,9 @@ layerDataReset(this.layer,keep)
             description: "Increases the exponent of the 3^3=7 upgrade based on rigged polls.",
             cost: new Decimal(10),
             effect(){
-                return softcap(player[this.layer].points.add(1).cbrt(),new Decimal(0.40958541694619255),new Decimal(0.15).pow(buyableEffect("b",13)).add(hasUpgrade("a",13)?player.co.points.sqrt().div(100):0))
+                let e= softcap(player[this.layer].points.add(1).cbrt(),new Decimal(0.40958541694619255),new Decimal(0.15).pow(buyableEffect("b",13)).add(hasUpgrade("a",13)?player.co.points.sqrt().div(100):0))
+                if(e.gte(4))e=e.log10().add(Decimal.sub(4,new Decimal(4).log10()))
+              return e
             },
             effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
         },
@@ -171,11 +173,11 @@ layerDataReset(this.layer,keep)
       24: {
             title: "",
             description: "Square prestige gain",
-            cost: new Decimal(1e9),
+            cost: new Decimal(1e8),
         },
       31: {
             title: "",
-            description: "multiply prestige point gain by ((log2(ln(points+1)+1)+1)^(log10(prestige points+1)+1)+1)^0.9",
+            description: "multiply prestige point gain by ((log2(ln(points+1)+1)+1)^(log10(prestige points+1)^0.9+1)+1)",
             cost: new Decimal(1e18),
         },
     }
