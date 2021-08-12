@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Vote",
 	author: "ajchen and alots of people",
 	pointsName: "points",
-	modFiles: ["layers/f.js","layers/e.js","layers/co.js","layers/c.js","layers/p.js","layers/po.js","layers/sc.js","layers/b.js", "tree.js"],
+	modFiles: ["layers/f.js","layers/e.js","layers/co.js","layers/c.js","layers/p.js","layers/po.js","layers/sc.js","layers/b.js", "tree.js","layers/morelayers.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,12 +13,16 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.32",
+	num: "0.40",
 	name: "democracy was never wrong :troll_hdr:",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<br><h3>v0.32</h3><br>
+<br><h3>v0.40</h3><br>
+- You found an easter egg
+- Added in a bunch of suggestions
+- C  
+  <br><h3>v0.32</h3><br>
 		- Added a clickable that counts the amount of times it is clicked that becomes purple when clicked an odd number of times.<br>
 		- Added another spell where the base of the second buyable is increased.<br>
 	<br><h3>v0.31</h3><br>
@@ -101,6 +105,7 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
+  if(inChallenge("c",21))return gain
 	if (hasUpgrade('b',11)) gain = gain.add(5)
 //Base Goes UP, Multi Goes DOWN
 	if (inChallenge('c', 11)||hasChallenge('c', 11)) gain = gain.times(2)
@@ -117,16 +122,24 @@ function getPointGen() {
 	if (hasUpgrade('b',11)) gain = gain.times(5)
 	if (getBuyableAmount('b',12).gte(new Decimal(1)))gain = gain.times(buyableEffect('b',12))
 	if (hasUpgrade('co',11)) gain = gain.times(2)
-
+if(hasUpgrade("po",23))gain=gain.mul(15)
+  if(hasUpgrade("a",11))gain=gain.mul(player.points.add(1).log().add(1))
+  if(inChallenge("c",22))gain=gain.add(1).log(2).pow(new Decimal(player.c.resetTime).add(2).log(2))
+  if(hasChallenge("c",22))gain=gain.mul(player.co.points.max(1))
+  if(hasMilestone("e",1))gain=gain.mul(player.e.points.div(1000).add(1))
+  if(hasUpgrade("a",14))gain=gain.mul(Decimal.pow(1.01,player.p.upgrades.length))
+  if(player.easy)gain=gain.div(10)
 	return gain
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
+  easy:false
 }}
 
 // Display extra things at the top of the page
-var displayThings = ["Endgame: 1e6 Rigged Poll"
+var displayThings = ["Endgame: 1e15 Rigged Poll",
+                     function(){return format(player.po.points.add(1).log(1e15).mul(100))+"% to endgame"}
 ]
 
 // Determines when the game "ends"

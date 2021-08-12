@@ -16,10 +16,12 @@ addLayer("p", {
     gainMult() {
         let mult = new Decimal(1)
         if (hasUpgrade('p', 13)) mult = mult.times(upgradeEffect('p', 13))
+      if(hasUpgrade("po",31))mult=mult.mul(player.points.add(1).ln().add(1).log(2).add(1).pow(player.p.points.add(1).log10().add(1)).add(1).pow(0.9))
+      if(hasUpgrade("a",15))mult=mult.mul(player.e.points.add(1))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        return new Decimal(1)
+        return new Decimal(1).add(hasUpgrade("a",12)?0.042069:0).mul(hasUpgrade("po",24)?2:1)
     },
     passiveGeneration(){
         if (hasUpgrade(this.layer,41))return 0.1
@@ -29,6 +31,13 @@ addLayer("p", {
     hotkeys: [
         {key: "p", description: "P: Reset for prestige points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+  doReset(layer){
+if(layers[layer].row>this.row){
+let keep = []
+if(hasMilestone("po",2)){keep.push("upgrades")}
+layerDataReset(this.layer,keep)
+}
+},
     layerShown(){return true},
     clickables: {
         11: {
@@ -37,6 +46,12 @@ addLayer("p", {
                 else return "A completely useless clickable."},
             canClick(){return true},
             onClick(){if (hasUpgrade('po',13)) player.f.points=player.f.points.add(0.5)}
+        },
+      12: {
+            title:'enter easy mode',
+            display() {return "easy"},
+            canClick(){return !player.easy},
+            onClick(){player.easy=true}
         },
     },
     upgrades:{

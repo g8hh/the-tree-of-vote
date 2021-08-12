@@ -68,7 +68,20 @@ addLayer("c", {
             goalDescription:"Get 1e18 points.",
             rewardDescription:"Your buyable effect is x2.<br>(Except first one.)",
             canComplete: function() {return player.points.gte(0)},
-            
+        },
+      21: {
+            name: "lol",
+            challengeDescription: "point gain ^0",
+            goalDescription:"Get 10 points.",
+            rewardDescription:"nothing",
+            canComplete: function() {return player.points.gte(10)},
+        },
+      22: {
+            name: "log",
+            challengeDescription: "point gain log2, but raised to the log2(time since reset+2)",
+            goalDescription:"Get 1e10 points.",
+            rewardDescription:"point gain is multiplied by community",
+            canComplete: function() {return player.points.gte(1e10)},
         },
     },
 })
