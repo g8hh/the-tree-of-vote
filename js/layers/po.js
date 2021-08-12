@@ -19,7 +19,7 @@ addLayer("po", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() {
         let mult = new Decimal(1)
-        if (player.co.points.gte(1)) mult = mult.mul(layers.co.effect())
+        if (player.co.points.gte(1)&&!inChallenge("ac",11)) mult = mult.mul(layers.co.effect())
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -43,6 +43,7 @@ addLayer("po", {
 if(layers[layer].row>this.row){
 let keep = []
 if(hasMilestone("co",1)){keep.push("milestones")}
+  if(hasMilestone("co",2)){keep.push("upgrades")}
 layerDataReset(this.layer,keep)
 }
 },
@@ -173,12 +174,12 @@ layerDataReset(this.layer,keep)
       24: {
             title: "",
             description: "Square prestige gain",
-            cost: new Decimal(1e8),
+            cost: new Decimal(1e7),
         },
       31: {
             title: "",
-            description: "multiply prestige point gain by ((log2(ln(points+1)+1)+1)^(log10(prestige points+1)^0.9+1)+1)",
-            cost: new Decimal(1e18),
+            description: "multiply prestige point gain by ln((log2(ln(points+1)+1)+1)^(log10(prestige points+1)^0.9+1)+1)+1",
+            cost: new Decimal(1e31),
         },
     }
 })

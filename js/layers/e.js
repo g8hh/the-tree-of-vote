@@ -1,7 +1,7 @@
 addLayer("e", {
     name: "elections", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "E", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: false,
 		points: new Decimal(0),
@@ -27,11 +27,12 @@ addLayer("e", {
     ],
     layerShown(){if (player.po.points.gte(500) || player[this.layer].points.gte(1) || hasUpgrade(this.layer,11)) return true
                 else return false},
+  canBuyMax(){return hasChallenge("ac",12)},
     tabFormat:[
         "main-display",
         "prestige-button",
         ["display-text",
-        `This layer DOES RESET BUYABLE LAYER<br>
+        `This layer resets all row 1 and 2 layers except anti challenges<br>
         This layer have nothing now as noone suggest and i don't know how to make an upgrade tree ;-;`],
         "milestones",
         "buyables",
@@ -42,7 +43,7 @@ addLayer("e", {
   },
   milestones:{
     1:{requirementDescription:"3 election polls",
-      rewardDescription:"Elections have a useful effect (very useful trust me)",
+      effectDescription:"Elections have a useful effect (very useful trust me)",
        done(){return player.e.points.gte(3)}
     }
   },

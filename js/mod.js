@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Vote",
 	author: "ajchen and alots of people",
 	pointsName: "points",
-	modFiles: ["layers/f.js","layers/e.js","layers/co.js","layers/c.js","layers/p.js","layers/po.js","layers/sc.js","layers/b.js", "tree.js","layers/morelayers.js"],
+	modFiles: ["layers/f.js","layers/e.js","layers/co.js","layers/c.js","layers/p.js","layers/po.js","layers/sc.js","layers/b.js", "tree.js","layers/morelayers.js","layers/ac.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,13 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.40.1",
+	num: "0.41",
 	name: "democracy was never wrong :troll_hdr:",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+<br><h3>v0.41</h3><br>
+- Added anti challenges and some milestones, and balanced the game more
 <br><h3>v0.40.1</h3><br>
 - Fixed NaN bug with the first addition upgrade
 <br><h3>v0.40</h3><br>
@@ -140,8 +142,8 @@ function addedPlayerData() { return {
 }}
 
 // Display extra things at the top of the page
-var displayThings = ["Endgame: 1e15 Rigged Poll",
-                     function(){return format(player.po.points.add(1).log(1e15).mul(100))+"% to endgame"}
+var displayThings = ["Endgame: 1e50 Rigged Poll",
+                     function(){return format(player.po.points.add(1).log(1e50).mul(100))+"% to endgame"}
 ]
 
 // Determines when the game "ends"
