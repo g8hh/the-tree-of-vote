@@ -332,6 +332,7 @@ var cnExcludePostfix = [
 //原样输出的字段：(.+)
 //换行加空格：\n(.+)
 var cnRegReplace = new Map([
+    [/^You are gaining (.+) Prestige points per second$/, '你每秒获得 $1 点声望点数'],
     [/^Reach (.+) Rigged Polls to unlock \(You have (.+) Rigged Polls$/, '达到 $1 被操纵的民意调查去解锁（你有 $2 被操纵的民意调查'],
     [/^Reach (.+) Prestige points to unlock \(You have (.+) Prestige points$/, '达到 $1 声望点去解锁（你有 $2 声望点'],
     [/^Reach (.+) prestige points to unlock \(You have (.+) prestige points$/, '达到 $1 声望点去解锁（你有 $2 声望点'],
@@ -357,6 +358,9 @@ var cnRegReplace = new Map([
     [/^([\d\.]+)e([\d\.,]+) Prestige points$/, '$1e$2 声望点'],
     [/^([\d\.]+)e([\d\.,]+) elves$/, '$1e$2 精灵'],
     [/^([\d\.,]+) Challenge points$/, '$1 挑战点'],
+    [/^([\d\.,]+) Election Polls$/, '$1 选举民意调查'],
+    [/^([\d\.,]+) Fumo$/, '$1 Fumo'],
+    [/^([\d\.,]+) election polls$/, '$1 选举民意调查'],
     [/^([\d\.,]+) Prestige points$/, '$1 声望点'],
     [/^([\d\.,]+) rigged polls$/, '$1 被操纵的民意调查'],
     [/^([\d\.,]+) Rigged Polls$/, '$1 被操纵的民意调查'],
